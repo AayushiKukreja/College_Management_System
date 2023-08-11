@@ -1,0 +1,175 @@
+/*  import google fonts */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700");
+
+body {
+  background: #dfe9f5;
+}
+.dataButton {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.containerr {
+  display: flex;
+  margin-top: 4px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 0;
+}
+
+/* Main Section */
+.main {
+  position: relative;
+  padding: 20px;
+  width: 100%;
+}
+.main-top {
+  /* display: flex; */
+  margin-top: 70px;
+  margin-bottom: 2px;
+  width: 100%;
+  text-align: center;
+}
+.react-icons {
+  position: absolute;
+  right: 0;
+  margin: 10px 30px;
+  color: rgb(110, 109, 109);
+  cursor: pointer;
+}
+.main-skills {
+  display: flex;
+  margin-top: 20px;
+}
+.main-skills .card {
+  width: 25%;
+  margin: 10px;
+  background: #fff;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.main-skills .card h3 {
+  margin: 10px;
+  text-transform: capitalize;
+}
+.main-skills .card p {
+  font-size: 12px;
+}
+.main-skills .card button {
+  background: #d3386c;
+  color: #fff;
+  padding: 7px 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+.main-skills .card button:hover {
+  background: #eaa0b9;
+}
+.main-skills .card i {
+  font-size: 22px;
+  padding: 10px;
+}
+
+/* Courses */
+.main-course {
+  margin-top: 20px;
+  text-transform: capitalize;
+}
+.course-box {
+  width: 100%;
+  height: 300px;
+  padding: 10px 10px 30px 10px;
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.course-box ul {
+  list-style: none;
+  display: flex;
+}
+.course-box ul li {
+  margin: 10px;
+  color: gray;
+  cursor: pointer;
+}
+.course-box ul .active {
+  color: #000;
+  border-bottom: 1px solid #000;
+}
+.course-box .course {
+  display: flex;
+}
+.box {
+  width: 33%;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  background: rgb(235, 233, 233);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+}
+.box p {
+  font-size: 12px;
+  margin-top: 5px;
+}
+.box button {
+  background: #000;
+  color: #fff;
+
+  padding: 7px 10px;
+  border-radius: 10px;
+  margin-top: 3rem;
+  cursor: pointer;
+}
+.box button:hover {
+  background: rgba(0, 0, 0, 0.842);
+}
+.box i {
+  font-size: 7rem;
+  float: right;
+  margin: -20px 20px 20px 0;
+}
+.html {
+  color: rgb(25, 94, 54);
+}
+.css {
+  color: rgb(104, 179, 35);
+}
+.js {
+  color: rgb(28, 98, 179);
+}
+h1 {
+  text-align: center;
+  margin-top: 30px;
+}
+p {
+  font-weight: 20px;
+  font-size: 20px;
+}
+
+.dataContainer {
+  padding: 10px;
+  margin-top: 15px;
+}
+
+.dataBackground {
+  border-radius: 4px;
+  padding: 10px;
+}
+.data {
+  font-size: 3000px;
+  color: brown;
+}
+h5 {
+  font-size: 40px;
+  color: brown;
+}
