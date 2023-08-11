@@ -2,10 +2,15 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
   margin-top: 10px;
-  /* overflow: hidden; */
   overflow: auto;
+  background: linear-gradient(
+    to right,
+    rgb(6, 190, 182),
+    rgb(76, 196, 189),
+    rgb(0, 138, 130)
+  );
+  /* background: transparent; */
 }
 
 .json-content {

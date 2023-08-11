@@ -48,16 +48,7 @@ h2 {
   width: 310px;
   border-bottom: 2px solid #fff;
 }
-.inputbox label {
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  /* color: #fff; */
-  font-size: 1em;
-  pointer-events: none;
-  transition: 0.5s;
-}
+
 input:focus ~ label,
 input:valid ~ label {
   top: -5px;
@@ -68,7 +59,7 @@ input:valid ~ label {
   background: transparent;
   border: none;
   outline: none;
-  font-size: 1em;
+  font-size: 1.1em;
   padding: 0 35px 0 5px;
   /* color: #fff; */
 }
@@ -170,6 +161,6 @@ body.active-modal {
 .button {
   margin-right: 310px;
 }
-/* .button:last-child {
-  margin-right: 0;
-} */
+.inputbox input::placeholder {
+  color: #2f2f2f;
+}

@@ -150,7 +150,7 @@ const Research = () => {
               name="submit"
               value="submit"
             >
-              Submit
+              Submit Record
             </button>
             <button
               className="resetButton"
