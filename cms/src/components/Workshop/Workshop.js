@@ -67,8 +67,8 @@ const Workshop = () => {
               setDescription(e.target.value);
             }}
             required
-            rows="2"
-            cols="50"
+            rows="3"
+            cols="80"
           />
           <label className="workshop-label" htmlFor="workshopName">
             Start Date:
