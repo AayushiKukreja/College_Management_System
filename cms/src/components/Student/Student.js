@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../Home/Sidebar";
 import axios from "axios";
-
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -12,7 +11,6 @@ import { Container, Stack } from "@mui/material";
 
 const style = {
   position: "absolute",
-
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
@@ -29,11 +27,6 @@ function Student() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-    navigate("/home");
-  };
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [empId, setEmpId] = useState("");
@@ -49,10 +42,16 @@ function Student() {
     setOpen(true);
   };
 
+  const handleClose = () => {
+    //setOpen(false);
+    navigate("/home");
+  };
+
   const toggleModalOpen = () => {
     setModal(!modal);
     setOpen(false);
   };
+
   if (modal) {
     document.body.classList.add("active-modal");
   } else {
@@ -84,14 +83,11 @@ function Student() {
         console.log(response);
       });
   }
-  const handleFocus = () => {
-    setInputType("date");
-  };
+
   return (
     <>
       <Sidebar />
       <div>
-        {/* <Button onClick={handleOpen}>Open modal</Button> */}
         <Modal
           open={open}
           onClose={handleClose}
@@ -99,7 +95,10 @@ function Student() {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <Typography variant="h4" style={{ textAlign: "center" }}>
+            <Typography
+              variant="h5"
+              style={{ textAlign: "center", color: "black" }}
+            >
               Student Record
             </Typography>
             <Container
@@ -110,14 +109,25 @@ function Student() {
                 alignItems: "center",
               }}
             >
-              <Button onClick={toggleModalOpen} className="btn-modal">
+              <Button
+                onClick={toggleModalOpen}
+                className="btn-modal"
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
+                }}
+              >
                 Add Student Record
               </Button>
 
               <Button
-                className="btn-modal button"
+                className="btn-modal"
                 onClick={() => {
                   navigate("/getStudent");
+                }}
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
                 }}
               >
                 List Student Records
@@ -126,22 +136,10 @@ function Student() {
           </Box>
         </Modal>
       </div>
-      {/* <div className="button-container">
-        <button onClick={toggleModal} className="btn-modal">
-          Add Student Record
-        </button>
-        <button
-          className="btn-modal button"
-          onClick={() => {
-            navigate("/getStudent");
-          }}
-        >
-          List Student Records
-        </button>
-      </div> */}
+
       <section>
         {modal && (
-          <div className="modal" style={{ position: "relative", zIndex: 4 }}>
+          <div className="modal">
             <div onClick={toggleModal} className="overlay"></div>
             <div class="form-box">
               <div class="form-value">

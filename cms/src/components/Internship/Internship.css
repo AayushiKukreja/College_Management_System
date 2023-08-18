@@ -4,9 +4,8 @@
   /* box-shadow: 250px 150px 110px rgba(0, 0, 0, 0.1); */
   border-radius: 8px;
   padding: 30px;
-  width: 400px;
+  width: 415px;
   font-family: Arial, sans-serif;
-  /* margin-top: px; */
   margin-left: 500px;
 }
 
@@ -31,6 +30,8 @@ input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-top: 10px;
+  margin-right: 20px;
 }
 
 .buttonContainer {

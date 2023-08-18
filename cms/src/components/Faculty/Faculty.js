@@ -5,6 +5,25 @@ import { useState } from "react";
 import "./Faculty.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Container, Stack } from "@mui/material";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 500,
+  height: 300,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+  zIndex: 1,
+};
 
 function Faculty() {
   let navigate = useNavigate();
@@ -17,6 +36,28 @@ function Faculty() {
   const [dob, setDob] = useState("");
   const [designation, setDesignation] = useState("");
   const [modal, setModal] = useState(false);
+  const [open, setOpen] = React.useState(true);
+
+  const toggleModal = () => {
+    setModal(!modal);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    //setOpen(false);
+    navigate("/home");
+  };
+
+  const toggleModalOpen = () => {
+    setModal(!modal);
+    setOpen(false);
+  };
+
+  if (modal) {
+    document.body.classList.add("active-modal");
+  } else {
+    document.body.classList.remove("active-modal");
+  }
   function Submit(e) {
     e.preventDefault();
     const fData = new FormData();
@@ -43,31 +84,58 @@ function Faculty() {
         console.log(response);
       });
   }
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
-  if (modal) {
-    document.body.classList.add("active-modal");
-  } else {
-    document.body.classList.remove("active-modal");
-  }
 
   return (
     <>
       <Sidebar />
-      <div className="button-container">
-        <button onClick={toggleModal} className="btn-modal ">
-          Add Faculty Member
-        </button>
-        <button
-          className="btn-modal button "
-          onClick={() => {
-            navigate("/getFaculty");
-          }}
+      <div>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
-          List Faculty Members
-        </button>
+          <Box sx={style}>
+            <Typography
+              variant="h5"
+              style={{ textAlign: "center", color: "black" }}
+            >
+              Faculty Record
+            </Typography>
+            <Container
+              style={{
+                display: "flex",
+                height: "90%",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Button
+                onClick={toggleModalOpen}
+                className="btn-modal"
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
+                }}
+              >
+                Add Faculty Member
+              </Button>
+
+              <Button
+                className="btn-modal"
+                onClick={() => {
+                  navigate("/getFaculty");
+                }}
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
+                }}
+              >
+                List Faculty Members
+              </Button>
+            </Container>
+          </Box>
+        </Modal>
       </div>
 
       <section>

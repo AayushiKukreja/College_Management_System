@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import "./OpenPaper.css";
 import { useParams } from "react-router-dom";
 
 const ResearchPaper = () => {
@@ -42,10 +42,10 @@ const ResearchPaper = () => {
   }
 
   return (
-    <div class="form-box">
+    <div class="formBox">
       <div class="form-value">
         <form>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -55,7 +55,7 @@ const ResearchPaper = () => {
               readOnly
             ></input>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -65,7 +65,7 @@ const ResearchPaper = () => {
               readOnly
             ></input>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -75,7 +75,7 @@ const ResearchPaper = () => {
               value={inputs.authors}
             ></input>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -85,7 +85,7 @@ const ResearchPaper = () => {
               value={inputs.publicationDate}
             ></input>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <textarea
               required
@@ -97,7 +97,7 @@ const ResearchPaper = () => {
               cols="50"
             ></textarea>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -107,7 +107,7 @@ const ResearchPaper = () => {
               value={inputs.url}
             ></input>
           </div>
-          <div class="inputbox">
+          <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
               required
@@ -119,7 +119,7 @@ const ResearchPaper = () => {
           </div>
 
           <button
-            className="close-modal"
+            className="closeModal"
             onClick={(e) => {
               navigate("/getResearchPaper");
             }}
