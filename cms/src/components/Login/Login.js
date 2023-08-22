@@ -24,7 +24,8 @@ function Login() {
 
       axios({
         method: "post",
-        url: "http://localhost:8080/db/login.php/",
+        // url: "http://localhost:8080/db/login.php/",
+        url: "https://omnific-canyon.000webhostapp.com/login.php/",
         data: fData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
