@@ -156,12 +156,6 @@ function GetStudent() {
         <button className="backButton" onClick={() => navigate("/student")}>
           Back
         </button>
-        <button
-          className="forwardButton"
-          onClick={() => navigate("/internship")}
-        >
-          Forward
-        </button>
       </div>
     </>
   );

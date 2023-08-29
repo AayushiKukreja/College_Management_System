@@ -173,3 +173,26 @@ h5 {
   font-size: 40px;
   color: brown;
 }
+.Logout {
+  margin-left: 1370px;
+}
+@media screen and (max-width: 768px) {
+  .main-skills {
+    flex-wrap: wrap; /* Allow cards to wrap onto new rows */
+    margin-bottom: -7px; /* Add negative margin to counteract spacing */
+  }
+  .main-skills .card {
+    width: 48%; /* Adjust the width to fit 2 cards on a row */
+    margin: 10px 1%; /* Add a little space between cards */
+  }
+  .main-skills .card h3 {
+    font-size: 16px; /* Adjust the font size for smaller devices */
+    line-height: 1.2; /* Adjust line height for better readability */
+  }
+  .main-skills .card .dataContainer {
+    display: flex;
+    justify-content: center; /* Center the data vertically */
+    align-items: center; /* Center the data horizontally */
+    min-height: 100px; /* Set a minimum height to ensure consistent spacing */
+  }
+}

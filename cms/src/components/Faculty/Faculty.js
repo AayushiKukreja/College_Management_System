@@ -60,29 +60,42 @@ function Faculty() {
   }
   function Submit(e) {
     e.preventDefault();
-    const fData = new FormData();
-    fData.append("email", email);
-    fData.append("name", name);
-    fData.append("empId", empId);
-    fData.append("gender", gender);
-    fData.append("dept", dept);
-    fData.append("higherStudies", higherStudies);
-    fData.append("designation", designation);
-    fData.append("dob", dob);
+    if (
+      email == "" ||
+      name == "" ||
+      empId == "" ||
+      gender == "" ||
+      dept == "" ||
+      higherStudies == "" ||
+      designation == "" ||
+      dob == ""
+    ) {
+      alert("Please Fill The Form Completely!!");
+    } else {
+      const fData = new FormData();
+      fData.append("email", email);
+      fData.append("name", name);
+      fData.append("empId", empId);
+      fData.append("gender", gender);
+      fData.append("dept", dept);
+      fData.append("higherStudies", higherStudies);
+      fData.append("designation", designation);
+      fData.append("dob", dob);
 
-    axios({
-      method: "post",
-      url: "http://localhost:8080/db/faculty.php",
-      data: fData,
-      config: { headers: { "Content-Type": "multipart/form-data" } },
-    })
-      .then(function (response) {
-        console.log(response);
-        alert("New faculty Successfully Added.");
+      axios({
+        method: "post",
+        url: "http://localhost:8080/db/faculty.php",
+        data: fData,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
       })
-      .catch(function (response) {
-        console.log(response);
-      });
+        .then(function (response) {
+          console.log(response);
+          alert("New faculty Successfully Added.");
+        })
+        .catch(function (response) {
+          console.log(response);
+        });
+    }
   }
 
   return (
@@ -95,7 +108,7 @@ function Faculty() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          {/* <Box sx={style}>
             <Typography
               variant="h5"
               style={{ textAlign: "center", color: "black" }}
@@ -129,6 +142,69 @@ function Faculty() {
                 style={{
                   background: "#d3386c",
                   color: "#fff",
+                }}
+              >
+                List Faculty Members
+              </Button>
+            </Container>
+          </Box>
+         */}
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "70%", // Adjust width for smaller devices
+              maxWidth: 500, // Set a maximum width for larger screens
+              height: "auto", // Let the content determine the height
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 2, // Adjust padding for smaller devices
+              zIndex: 1,
+            }}
+          >
+            <Typography
+              variant="h5"
+              style={{
+                textAlign: "center",
+                color: "black",
+                fontSize: "1.5rem", // Adjust font size for smaller devices
+              }}
+            >
+              Student Record
+            </Typography>
+            <Container
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <Button
+                onClick={toggleModalOpen}
+                className="btn-modal"
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
+                  marginBottom: "1rem",
+                  width: "100%",
+                }}
+              >
+                Add Faculty Member
+              </Button>
+
+              <Button
+                className="btn-modal"
+                onClick={() => {
+                  navigate("/getFaculty");
+                }}
+                style={{
+                  background: "#d3386c",
+                  color: "#fff",
+                  width: "100%",
                 }}
               >
                 List Faculty Members

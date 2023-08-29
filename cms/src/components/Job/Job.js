@@ -24,26 +24,30 @@ function Job() {
 
   function Submit(e) {
     e.preventDefault();
-    const fData = new FormData();
-    fData.append("stipend", stipend);
-    fData.append("empId", empId);
-    fData.append("company", company);
-    fData.append("doj", doj);
+    if (empId == "" || stipend == "" || company == "" || doj == "") {
+      alert("Please Fill The Form Completely!!");
+    } else {
+      const fData = new FormData();
+      fData.append("stipend", stipend);
+      fData.append("empId", empId);
+      fData.append("company", company);
+      fData.append("doj", doj);
 
-    axios({
-      method: "post",
-      url: "http://localhost:8080/db/job.php",
-      data: fData,
-      config: { headers: { "Content-Type": "multipart/form-data" } },
-    })
-      .then(function (response) {
-        console.log(response);
-        alert(response.data);
+      axios({
+        method: "post",
+        url: "http://localhost:8080/db/job.php",
+        data: fData,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
       })
-      .catch(function (response) {
-        console.log(response);
-        alert(response.data);
-      });
+        .then(function (response) {
+          console.log(response);
+          alert(response.data);
+        })
+        .catch(function (response) {
+          console.log(response);
+          alert(response.data);
+        });
+    }
   }
 
   return (

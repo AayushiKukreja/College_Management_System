@@ -151,12 +151,6 @@ const GetJob = () => {
         <button className="backButton" onClick={() => navigate("/job")}>
           Back
         </button>
-        <button
-          className="forwardButton"
-          onClick={() => navigate("/higherstudies")}
-        >
-          Forward
-        </button>
       </div>
     </>
   );

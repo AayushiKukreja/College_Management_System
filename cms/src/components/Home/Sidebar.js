@@ -6,6 +6,7 @@ import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
 import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 const Nav = styled.div`
   //background: #38d39f;
@@ -74,6 +75,12 @@ const SidebarWrap = styled.div`
 
 const Sidebar = () => {
   const [sidebar, setSidebar] = useState(false);
+  let navigate = useNavigate();
+
+  function LogOut() {
+    localStorage.removeItem("email");
+    navigate("/");
+  }
 
   const showSidebar = () => setSidebar(!sidebar);
   if (localStorage.getItem("email") != "aayushikukreja21@gmail.com") {
@@ -91,6 +98,9 @@ const Sidebar = () => {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
+          <button className="Logout" onClick={() => LogOut()}>
+            Logout
+          </button>
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

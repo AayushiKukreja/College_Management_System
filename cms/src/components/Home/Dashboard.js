@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
   const [data, setData] = useState("");
   let navigate = useNavigate();
-  console.log(localStorage.getItem("email"));
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/db/dashboard.php")
@@ -70,7 +70,7 @@ const Dashboard = () => {
             </div>
             <div class="card">
               <ImNewspaper />
-              <h3>Research Papers Published</h3>
+              <h3 class="heading">Papers Published</h3>
               <div className="dataContainer">
                 <div className="dataBackground">
                   <h5>{data[2]}</h5>

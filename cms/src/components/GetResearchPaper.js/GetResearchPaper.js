@@ -195,9 +195,6 @@ const GetResearchPaper = () => {
         <button className="backButton" onClick={() => navigate("/research")}>
           Back
         </button>
-        <button className="forwardButton" onClick={() => navigate("")}>
-          Forward
-        </button>
       </div>
     </>
   );

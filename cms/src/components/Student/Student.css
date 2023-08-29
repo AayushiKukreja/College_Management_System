@@ -43,3 +43,24 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #45a049;
 }
+@media screen and (max-width: 768px) {
+  form {
+    padding: 10px; /* Adjust padding for smaller devices */
+  }
+  .inputbox {
+    margin-bottom: 10px;
+  }
+
+  .close-modal {
+    position: absolute;
+    /* top: -5px;
+    right: 195px; */
+    padding: 5px;
+    font-size: 14px;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    z-index: 2;
+  }
+}

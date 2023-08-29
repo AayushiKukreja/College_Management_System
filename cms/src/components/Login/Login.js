@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+
   let navigate = useNavigate();
 
   function Submit(e) {
     e.preventDefault();
-
     const fData = new FormData();
-    if (email == "" || password == "") {
+    if (email === "" || password === "") {
       alert("Please Fill Both The Fields!!!");
     } else {
       fData.append("email", email);
@@ -24,8 +24,7 @@ function Login() {
 
       axios({
         method: "post",
-        // url: "http://localhost:8080/db/login.php/",
-        url: "https://omnific-canyon.000webhostapp.com/login.php/",
+        url: "http://localhost:8080/db/login.php/",
         data: fData,
         config: { headers: { "Content-Type": "multipart/form-data" } },
       })
@@ -51,7 +50,6 @@ function Login() {
     }
   }
 
-  console.log(email);
   return (
     <div className="con-tainer">
       <div class="img">

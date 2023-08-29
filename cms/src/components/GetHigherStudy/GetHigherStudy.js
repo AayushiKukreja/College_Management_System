@@ -155,7 +155,6 @@ const GetHigherStudy = () => {
         >
           Back
         </button>
-        <button className="forwardButton">Forward</button>
       </div>
     </>
   );

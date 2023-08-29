@@ -26,26 +26,36 @@ function Internship() {
 
   function Submit(e) {
     e.preventDefault();
-    const fData = new FormData();
-    fData.append("duration", duration);
-    fData.append("empId", empId);
-    fData.append("company", company);
-    fData.append("stipend", stipend);
-    fData.append("doj", doj);
+    if (
+      empId == "" ||
+      duration == "" ||
+      company == "" ||
+      stipend == "" ||
+      doj == ""
+    ) {
+      alert("Please Fill The Form Completely!!");
+    } else {
+      const fData = new FormData();
+      fData.append("duration", duration);
+      fData.append("empId", empId);
+      fData.append("company", company);
+      fData.append("stipend", stipend);
+      fData.append("doj", doj);
 
-    axios({
-      method: "post",
-      url: "http://localhost:8080/db/internship.php",
-      data: fData,
-      config: { headers: { "Content-Type": "multipart/form-data" } },
-    })
-      .then(function (response) {
-        console.log(response);
-        alert(response.data);
+      axios({
+        method: "post",
+        url: "http://localhost:8080/db/internship.php",
+        data: fData,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
       })
-      .catch(function (response) {
-        alert("ERRORR!!!!");
-      });
+        .then(function (response) {
+          console.log(response);
+          alert(response.data);
+        })
+        .catch(function (response) {
+          alert("ERRORR!!!!");
+        });
+    }
   }
 
   return (

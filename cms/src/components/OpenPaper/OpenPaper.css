@@ -12,6 +12,7 @@ section {
   width: 100%;
   background-position: center;
   background-size: cover;
+  overflow-y: auto;
 }
 .formBox {
   width: 1000px;
@@ -32,7 +33,7 @@ section {
   line-height: 1.4;
   padding: 14px 28px;
   border-radius: 3px;
-  overflow-y: auto;
+  overflow: auto;
 }
 h2 {
   font-size: 2em;

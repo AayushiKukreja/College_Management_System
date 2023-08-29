@@ -27,7 +27,8 @@ button {
 }
 .backButton {
   margin-top: 110px;
-  margin-left: 100px;
+  /* margin-left: 100px; */
+  margin-left: 665px;
   padding: 10px 30px;
 }
 .forwardButton {

@@ -17,29 +17,40 @@ const Research = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    e.preventDefault();
-    const fData = new FormData();
-    fData.append("paperId", paperId);
-    fData.append("title", title);
-    fData.append("authors", authors);
-    fData.append("publicationDate", publicationDate);
-    fData.append("abstract", abstract);
-    fData.append("url", url);
-    fData.append("role", role);
-    console.log(fData);
-    axios({
-      method: "post",
-      url: "http://localhost:8080/db/research.php",
-      data: fData,
-      config: { headers: { "Content-Type": "multipart/form-data" } },
-    })
-      .then(function (response) {
-        console.log(response);
-        alert(response.data);
+    if (
+      paperId == "" ||
+      title == "" ||
+      authors == "" ||
+      publicationDate == "" ||
+      abstract == "" ||
+      url == "" ||
+      role == ""
+    ) {
+      alert("Please Fill The Form Completely!!");
+    } else {
+      const fData = new FormData();
+      fData.append("paperId", paperId);
+      fData.append("title", title);
+      fData.append("authors", authors);
+      fData.append("publicationDate", publicationDate);
+      fData.append("abstract", abstract);
+      fData.append("url", url);
+      fData.append("role", role);
+      console.log(fData);
+      axios({
+        method: "post",
+        url: "http://localhost:8080/db/research.php",
+        data: fData,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
       })
-      .catch(function (response) {
-        alert("ERRORR!!!!");
-      });
+        .then(function (response) {
+          console.log(response);
+          alert(response.data);
+        })
+        .catch(function (response) {
+          alert("ERRORR!!!!");
+        });
+    }
   };
 
   return (

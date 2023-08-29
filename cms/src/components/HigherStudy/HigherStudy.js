@@ -19,23 +19,27 @@ const HigherStudy = () => {
 
   function Submit(e) {
     e.preventDefault();
-    const fData = new FormData();
-    fData.append("course", course);
-    fData.append("empId", empId);
-    fData.append("college", college);
-    axios({
-      method: "post",
-      url: "http://localhost:8080/db/higherStudy.php",
-      data: fData,
-      config: { headers: { "Content-Type": "multipart/form-data" } },
-    })
-      .then(function (response) {
-        console.log(response);
-        alert(response.data);
+    if (empId == "" || college == "" || course == "") {
+      alert("Please Fill The Form Completely!!");
+    } else {
+      const fData = new FormData();
+      fData.append("course", course);
+      fData.append("empId", empId);
+      fData.append("college", college);
+      axios({
+        method: "post",
+        url: "http://localhost:8080/db/higherStudy.php",
+        data: fData,
+        config: { headers: { "Content-Type": "multipart/form-data" } },
       })
-      .catch(function (response) {
-        alert("ERRORR!!!!");
-      });
+        .then(function (response) {
+          console.log(response);
+          alert(response.data);
+        })
+        .catch(function (response) {
+          alert("ERRORR!!!!");
+        });
+    }
   }
 
   return (
