@@ -15,7 +15,12 @@ const GetResearchPaper = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
-    getUsers();
+    axios
+      .get("http://localhost:8080/db/research.php/")
+      .then(function (response) {
+        console.log(response);
+        setResearchData(response.data);
+      });
   }, []);
 
   function getUsers() {
@@ -121,7 +126,9 @@ const GetResearchPaper = () => {
             </tr>
           </thead>
           <tbody>
-            {researchData == "No matching records found." ? (
+            {show &&
+            searchKeyword == "" &&
+            researchData == "No matching records found." ? (
               <h1>No Data found!!</h1>
             ) : (
               searchKeyword == "" &&

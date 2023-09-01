@@ -94,7 +94,14 @@ const Dashboard = () => {
                   <h5>{data[3]}</h5>
                 </div>
               </div>
-              <button className="dataButton">View Data</button>
+              <button
+                className="dataButton"
+                onClick={() => {
+                  navigate("/viewWorkshop");
+                }}
+              >
+                View Data
+              </button>
             </div>
           </div>
 
