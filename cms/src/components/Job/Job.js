@@ -3,6 +3,8 @@ import Sidebar from "../Home/Sidebar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Job.css";
+import { motion } from "framer-motion";
 
 function Job() {
   let navigate = useNavigate();
@@ -11,6 +13,17 @@ function Job() {
   const [company, setCompany] = useState("");
   const [doj, setDoj] = useState("");
   const [modal, setModal] = useState(false);
+
+  const buttonVariants = {
+    initial: { scale: 1 },
+    hover: { scale: 1.1 },
+    pressed: { scale: 0.9 },
+  };
+
+  const formVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
 
   const toggleModal = () => {
     setModal(!modal);
@@ -53,83 +66,102 @@ function Job() {
   return (
     <>
       <Sidebar />
-      <center>
-        <h2>Add Job Record</h2>
-      </center>
-      <div className="formContainer">
-        <form>
-          <div className="form-group">
-            <label htmlFor="name">Enrollment id</label>
-            <input
-              required
-              autoComplete="off"
-              type="text"
-              name="empId"
-              onChange={(e) => {
-                setEmpId(e.target.value);
-              }}
-            ></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Package in LPA</label>
-            <input
-              required
-              autoComplete="off"
-              type="text"
-              name="stipend"
-              onChange={(e) => {
-                setStipend(e.target.value);
-              }}
-            ></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Company</label>
-            <input
-              required
-              autoComplete="off"
-              type="text"
-              name="company"
-              onChange={(e) => {
-                setCompany(e.target.value);
-              }}
-            ></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Date of Joining</label>
-            <input
-              required
-              type="date"
-              placeholder="(dd-mm-yyyy)"
-              name="doj"
-              onChange={(e) => {
-                setDoj(e.target.value);
-              }}
-            ></input>
-          </div>
-          <div className="buttonContainer">
-            <button
-              type="submit"
-              className="submit-button"
-              id="sumbit"
-              name="submit"
-              value="submit"
-              onClick={(e) => {
-                Submit(e);
-              }}
-            >
-              Submit
-            </button>
-            <button
-              className="reset-button"
-              onClick={() => {
-                navigate("/getjob");
-              }}
-            >
-              List Records
-            </button>
-          </div>
-        </form>
-      </div>
+      <motion.div
+        initial={{ y: -200 }}
+        animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 120, damping: 10 }}
+      >
+        <center>
+          <h2>Add Job Record</h2>
+        </center>
+        <div className="formmContainer">
+          <motion.form
+            initial="hidden"
+            animate="visible"
+            variants={formVariants}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="form-group">
+              <label htmlFor="name">Enrollment id</label>
+              <input
+                required
+                autoComplete="off"
+                type="text"
+                name="empId"
+                onChange={(e) => {
+                  setEmpId(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Package in LPA</label>
+              <input
+                required
+                autoComplete="off"
+                type="text"
+                name="stipend"
+                onChange={(e) => {
+                  setStipend(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Company</label>
+              <input
+                required
+                autoComplete="off"
+                type="text"
+                name="company"
+                onChange={(e) => {
+                  setCompany(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Date of Joining</label>
+              <input
+                required
+                type="date"
+                placeholder="(dd-mm-yyyy)"
+                name="doj"
+                onChange={(e) => {
+                  setDoj(e.target.value);
+                }}
+              ></input>
+            </div>
+            <div className="buttonContainer">
+              <motion.button
+                variants={buttonVariants}
+                initial="initial"
+                whileHover="hover"
+                whileTap="pressed"
+                type="submit"
+                className="submit-button"
+                id="sumbit"
+                name="submit"
+                value="submit"
+                onClick={(e) => {
+                  Submit(e);
+                }}
+              >
+                Submit
+              </motion.button>
+              <motion.button
+                variants={buttonVariants}
+                initial="initial"
+                whileHover="hover"
+                whileTap="pressed"
+                className="reset-button"
+                onClick={() => {
+                  navigate("/getjob");
+                }}
+              >
+                List Records
+              </motion.button>
+            </div>
+          </motion.form>
+        </div>
+      </motion.div>
     </>
   );
 }

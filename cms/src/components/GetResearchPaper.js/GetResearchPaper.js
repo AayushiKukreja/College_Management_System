@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./GetResearchpaper.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const GetResearchPaper = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
@@ -13,6 +14,52 @@ const GetResearchPaper = () => {
   const [researchData, setResearchData] = useState([]);
   const [show, setShow] = useState(true);
   let navigate = useNavigate();
+
+  const searchBarVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.1,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const inputBarVariants = {
+    hidden: { opacity: 0, x: 20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.1,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const rowVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const cellVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  };
 
   useEffect(() => {
     axios
@@ -82,7 +129,12 @@ const GetResearchPaper = () => {
     <>
       <Sidebar />
       <div className="header">
-        <div className="search-bar">
+        <motion.div
+          className="search-bar"
+          variants={searchBarVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <input
             type="text"
             autoComplete="off"
@@ -90,12 +142,16 @@ const GetResearchPaper = () => {
             placeholder="Enter PaperId"
             onChange={(event) => setSearchKeyword(event.target.value)}
           />
-          {/* Optional search button */}
           <button className="search-btn" onClick={handleSearch}>
             Search
           </button>
-        </div>
-        <div className="input-bar">
+        </motion.div>
+        <motion.div
+          className="input-bar"
+          variants={inputBarVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <input
             type="text"
             placeholder="Get Data of Student/Teacher"
@@ -109,10 +165,10 @@ const GetResearchPaper = () => {
           <button className="search-btn" onClick={handleFind}>
             Search
           </button>
-        </div>
+        </motion.div>
       </div>
       <div className="table_responsive">
-        <table className="styled-table">
+        <motion.table className="styled-table">
           <thead>
             <tr>
               <th>Paper Id</th>
@@ -125,29 +181,50 @@ const GetResearchPaper = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <motion.tbody>
             {show &&
             searchKeyword == "" &&
             researchData == "No matching records found." ? (
-              <h1>No Data found!!</h1>
+              <motion.tr variants={rowVariants}>
+                <td colSpan="8">
+                  <h1>No Data found!!</h1>
+                </td>
+              </motion.tr>
             ) : (
               searchKeyword == "" &&
               researchData.map((user, key) => (
-                <tr key={key}>
-                  <td>{researchData[key].paperId}</td>
-                  <td>{researchData[key].title}</td>
-                  <td>{researchData[key]?.authors}</td>
-                  <td>{researchData[key]?.publicationDate}</td>
-                  <td>{truncateText(researchData[key]?.abstract)}</td>
-                  <td>
+                <motion.tr
+                  variants={rowVariants}
+                  key={key}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <motion.td variants={cellVariants}>
+                    {researchData[key].paperId}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {researchData[key].title}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {researchData[key]?.authors}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {researchData[key]?.publicationDate}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {truncateText(researchData[key]?.abstract)}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
                     <a
                       className="link"
                       href={researchData[key]?.url}
                       target="_blank"
                     >{`${researchData[key]?.url}`}</a>
-                  </td>
-                  <td>{researchData[key]?.role}</td>
-                  <td>
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {researchData[key]?.role}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
                     <div class="action-btn">
                       <button
                         className="delete-button"
@@ -160,26 +237,48 @@ const GetResearchPaper = () => {
                         Open
                       </Link>
                     </div>
-                  </td>
-                </tr>
+                  </motion.td>
+                </motion.tr>
               ))
             )}
             {!show &&
             searchKeyword != "" &&
             searchResults == "No matching records found." ? (
-              <h1>No Data found!!</h1>
+              <motion.tr variants={rowVariants}>
+                <td colSpan="8">
+                  <h1>No Data found!!</h1>
+                </td>
+              </motion.tr>
             ) : (
               searchKeyword != "" &&
               searchResults.map((user, key) => (
-                <tr>
-                  <td>{searchResults[0]?.paperId}</td>
-                  <td>{searchResults[0]?.title}</td>
-                  <td>{searchResults[0]?.authors}</td>
-                  <td>{searchResults[0]?.publicationDate}</td>
-                  <td>{searchResults[0]?.abstract}</td>
-                  <td>{searchResults[0]?.url}</td>
-                  <td>{searchResults[0]?.role}</td>
-                  <td>
+                <motion.tr
+                  variants={rowVariants}
+                  initial="hidden"
+                  animate="visible"
+                >
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.paperId}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.title}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.authors}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.publicationDate}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.abstract}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.url}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
+                    {searchResults[0]?.role}
+                  </motion.td>
+                  <motion.td variants={cellVariants}>
                     <div class="action-btn">
                       <button
                         className="delete-button"
@@ -191,12 +290,12 @@ const GetResearchPaper = () => {
                         Open
                       </Link>
                     </div>
-                  </td>
-                </tr>
+                  </motion.td>
+                </motion.tr>
               ))
             )}
-          </tbody>
-        </table>
+          </motion.tbody>
+        </motion.table>
       </div>
       <div>
         <button className="backButton" onClick={() => navigate("/research")}>

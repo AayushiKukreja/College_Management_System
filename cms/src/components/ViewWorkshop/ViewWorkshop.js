@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import "./ViewWorkshop.css";
 import Sidebar from "../Home/Sidebar";
+import { motion } from "framer-motion";
 
 const ViewWorkshop = () => {
   const [selectedObject, setSelectedObject] = useState(null);
@@ -30,30 +31,44 @@ const ViewWorkshop = () => {
         <div className="json-content">
           <div className="object-list">
             {users?.map((user) => (
-              <div
+              <motion.div
                 key={user.id}
                 className={`object-name ${
                   selectedObject === user.id ? "active" : ""
                 }`}
                 onClick={() => handleObjectClick(user.id)}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
               >
                 {user.name}
-              </div>
+              </motion.div>
             ))}
           </div>
           <div className="object-details">
             {selectedObject && (
-              <div className="json-card">
+              <motion.div
+                className="json-card"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3 }}
+              >
                 <h2>{users.find((user) => user.id === selectedObject).name}</h2>
                 {Object.entries(
                   users.find((user) => user.id === selectedObject)
                 ).map(([key, value]) => (
-                  <div key={key} className="property">
+                  <motion.div
+                    key={key}
+                    className="property"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                  >
                     <span className="label">{key}:</span>
                     <span className="value">{value}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             )}
           </div>
         </div>

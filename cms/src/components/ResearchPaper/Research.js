@@ -4,6 +4,7 @@ import "./Research.css";
 import Sidebar from "../Home/Sidebar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Research = () => {
   const [paperId, setPaperId] = useState("");
@@ -14,6 +15,30 @@ const Research = () => {
   const [url, setUrl] = useState("");
   const [role, setRole] = useState("");
   let navigate = useNavigate();
+
+  const formVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const headingVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.9,
+        ease: "easeOut",
+      },
+    },
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,9 +81,22 @@ const Research = () => {
   return (
     <>
       <Sidebar />
-      <div>
-        <h2 className="researchTitle">Add Research Paper Record</h2>
-        <form className="paper-form" onSubmit={handleSubmit}>
+      <div className="research">
+        <motion.h2
+          className="researchTitle"
+          variants={headingVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          Add Research Paper Record
+        </motion.h2>
+        <motion.form
+          className="paper-form"
+          onSubmit={handleSubmit}
+          variants={formVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="form-group">
             <label htmlFor="paperId">Paper Id:</label>
             <input
@@ -154,25 +192,29 @@ const Research = () => {
           </div>
 
           <div className="button-Container">
-            <button
+            <motion.button
               type="submit"
               className="submitButton"
               id="sumbit"
               name="submit"
               value="submit"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               Submit Record
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               className="resetButton"
               onClick={() => {
                 navigate("/getResearchPaper");
               }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               List Records
-            </button>
+            </motion.button>
           </div>
-        </form>
+        </motion.form>
       </div>
     </>
   );

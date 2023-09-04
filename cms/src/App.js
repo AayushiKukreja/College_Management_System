@@ -29,6 +29,7 @@ library.add(fas);
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
+
   useEffect(() => {
     const email = localStorage.getItem("email");
     if (email != null) {
@@ -37,6 +38,7 @@ function App() {
       setAuthUser(false);
     }
   }, []);
+
   return (
     <div>
       <BrowserRouter>
@@ -50,7 +52,6 @@ function App() {
               </Protected>
             }
           />
-          {/* <Route path="/home" element={<Dashboard />} /> */}
           <Route
             path="/faculty"
             element={

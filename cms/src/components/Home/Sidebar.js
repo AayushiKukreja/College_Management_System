@@ -8,20 +8,9 @@ import SubMenu from "./SubMenu";
 import { IconContext } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-const Nav = styled.div`
-  //background: #38d39f;
-  // background: rgb(2, 0, 36);
-  // background: linear-gradient(
-  //   112.1deg,
-  //   rgb(32, 38, 57) 11.4%,
-  //   rgb(63, 76, 119) 70.2%
-  // );
-  // background: linear-gradient(
-  //   90deg,
-  //   rgba(2, 0, 36, 1) 0%,
-  //   rgba(56, 211, 159, 1) 59%
-  // );
+import { motion } from "framer-motion";
 
+const Nav = styled.div`
   background: #06beb6;
   background: -webkit-linear-gradient(to right, #06beb6, #48b1bf);
   background: linear-gradient(to right, #06beb6, #48b1bf);
@@ -41,23 +30,9 @@ const NavIcon = styled(Link)`
 `;
 
 const SidebarNav = styled.nav`
-  // background: rgb(2, 0, 36);
-  // background: linear-gradient(
-  //   112.1deg,
-  //   rgb(32, 38, 57) 11.4%,
-  //   rgb(63, 76, 119) 70.2%
-  // );
-  //grren
-  // background: linear-gradient(
-  //   180deg,
-  //   rgba(2, 0, 36, 1) 0%,
-  //   rgba(56, 211, 159, 1) 59%
-  // );
-
   background: #06beb6;
   background: -webkit-linear-gradient(to right, #06beb6, #48b1bf);
   background: linear-gradient(to right, #06beb6, #48b1bf);
-
   width: 250px;
   height: 100vh;
   display: flex;
@@ -82,6 +57,12 @@ const Sidebar = () => {
     navigate("/");
   }
 
+  const buttonVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.2 },
+    tap: { scale: 0.9 },
+  };
+
   const showSidebar = () => setSidebar(!sidebar);
   if (localStorage.getItem("email") != "aayushikukreja21@gmail.com") {
     const facultyIndex = SidebarData.findIndex(
@@ -98,9 +79,15 @@ const Sidebar = () => {
           <NavIcon to="#">
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
-          <button className="Logout" onClick={() => LogOut()}>
+          <motion.button
+            className="Logout"
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            onClick={() => LogOut()}
+          >
             Logout
-          </button>
+          </motion.button>
         </Nav>
         <SidebarNav sidebar={sidebar}>
           <SidebarWrap>

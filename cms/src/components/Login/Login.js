@@ -4,12 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-
   let navigate = useNavigate();
+
+  const buttonVariants = {
+    rest: { scale: 1 },
+    hover: { scale: 1.1 },
+    tap: { scale: 0.9 },
+  };
 
   function Submit(e) {
     e.preventDefault();
@@ -55,6 +61,7 @@ function Login() {
       <div class="img">
         <img className="wave" src="./wave.png" />
       </div>
+
       <div className="login-content">
         <form>
           <img src="./login.png" alt="profile" />
@@ -95,7 +102,7 @@ function Login() {
               />
             </div>
           </div>
-          <input
+          <motion.input
             type="submit"
             name="submit"
             class="btn"
@@ -103,7 +110,10 @@ function Login() {
             onClick={(e) => {
               Submit(e);
             }}
-          ></input>
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+          ></motion.input>
         </form>
       </div>
     </div>

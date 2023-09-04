@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Workshop.css";
 import Sidebar from "../Home/Sidebar";
 import axios from "axios";
+import { motion } from "framer-motion";
 
 const Workshop = () => {
   const [workshopName, setWorkshopName] = useState("");
@@ -11,6 +12,31 @@ const Workshop = () => {
   const [endDate, setEndDate] = useState(false);
   const [location, setLocation] = useState(false);
   const [instructors, setInstructors] = useState(false);
+
+  const inputVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.1,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const headingVariants = {
+    hidden: { y: -50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 2.5,
+        type: "spring",
+        stiffness: 150,
+      },
+    },
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -40,13 +66,27 @@ const Workshop = () => {
   return (
     <>
       <Sidebar />
-      <div className="workshop-form-container">
+      <motion.div
+        className="heading"
+        initial="hidden"
+        animate="visible"
+        variants={headingVariants}
+      >
         <h1>Workshop Registration Form</h1>
+      </motion.div>
+
+      <div className="workshop-form-container">
         <form onSubmit={handleSubmit} className="workshop-form">
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Title:
-          </label>
-          <input
+          </motion.label>
+          <motion.input
             className="workshop-input"
             type="text"
             autoComplete="off"
@@ -55,11 +95,20 @@ const Workshop = () => {
               setWorkshopName(e.target.value);
             }}
             required
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Description:
-          </label>
-          <textarea
+          </motion.label>
+          <motion.textarea
             autoComplete="off"
             className="workshop-input"
             name="description"
@@ -69,11 +118,20 @@ const Workshop = () => {
             required
             rows="3"
             cols="80"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Start Date:
-          </label>
-          <input
+          </motion.label>
+          <motion.input
             autoComplete="off"
             className="workshop-input"
             type="date"
@@ -82,11 +140,20 @@ const Workshop = () => {
               setStartDate(e.target.value);
             }}
             required
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             End Date:
-          </label>
-          <input
+          </motion.label>
+          <motion.input
             autoComplete="off"
             className="workshop-input"
             type="date"
@@ -95,11 +162,20 @@ const Workshop = () => {
               setEndDate(e.target.value);
             }}
             required
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Location:
-          </label>
-          <input
+          </motion.label>
+          <motion.input
             autoComplete="off"
             className="workshop-input"
             type="text"
@@ -108,11 +184,20 @@ const Workshop = () => {
               setLocation(e.target.value);
             }}
             required
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
-          <label className="workshop-label" htmlFor="workshopName">
+          <motion.label
+            className="workshop-label"
+            htmlFor="workshopName"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Instructor:
-          </label>
-          <input
+          </motion.label>
+          <motion.input
             autoComplete="off"
             className="workshop-input"
             type="text"
@@ -121,12 +206,20 @@ const Workshop = () => {
               setInstructors(e.target.value);
             }}
             required
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
           />
 
-          {/* Other input fields can be added similarly */}
-          <button type="submit" className="workshop-button ">
+          <motion.button
+            type="submit"
+            className="workshop-button"
+            variants={inputVariants}
+            initial="hidden"
+            animate="visible"
+          >
             Submit
-          </button>
+          </motion.button>
         </form>
       </div>
     </>

@@ -4,6 +4,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
 function GetInternship() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -56,17 +58,48 @@ function GetInternship() {
   return (
     <>
       <Sidebar />
-      <div className="form-container">
-        <input
-          type="text"
-          value={searchKeyword}
-          placeholder="Enter Name"
-          onChange={(event) => setSearchKeyword(event.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      <div className="table_responsive">
-        <table className="styled-table">
+      <motion.div
+        initial={{ y: -200 }}
+        animate={{ y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 10,
+          duration: 1.1,
+        }}
+      >
+        <div className="form-container">
+          <input
+            type="text"
+            value={searchKeyword}
+            placeholder="Enter Name"
+            onChange={(event) => setSearchKeyword(event.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 10,
+          duration: 9.5,
+        }}
+        className="table_responsive"
+      >
+        <motion.table
+          initial={{ x: "-100%" }}
+          animate={{ x: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 120,
+            damping: 10,
+            duration: 9.5,
+          }}
+          className="styled-table"
+        >
           <thead>
             <tr>
               <th>Name</th>
@@ -152,8 +185,8 @@ function GetInternship() {
               ))
             )}
           </tbody>
-        </table>
-      </div>
+        </motion.table>
+      </motion.div>
       <div>
         <button className="backButton" onClick={() => navigate("/internship")}>
           Back

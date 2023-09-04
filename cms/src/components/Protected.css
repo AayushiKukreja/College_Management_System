@@ -1,0 +1,18 @@
+.error-page {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.error-message {
+  margin-top: 300px;
+  font-size: 24px;
+  color: red;
+}
+
+.login-button {
+  padding: 10px 20px;
+  background-color: #06beb6;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

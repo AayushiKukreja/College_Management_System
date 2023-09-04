@@ -8,9 +8,8 @@
   justify-content: center;
   height: 10vh;
   margin-left: 530px;
-  margin-top: 10px;
+  /* margin-top: 10px; */
   margin-bottom: 2px;
-
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
     rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
     rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
@@ -26,9 +25,9 @@ button {
   padding: 5px;
 }
 .backButton {
-  margin-top: 110px;
+  margin-top: 150px;
   /* margin-left: 100px; */
-  margin-left: 665px;
+  margin-left: 698px;
   padding: 10px 30px;
 }
 .forwardButton {

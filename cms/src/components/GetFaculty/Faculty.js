@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Facultyy.css";
 import Sidebar from "../Home/Sidebar";
+import { motion } from "framer-motion";
 
 function Faculty() {
   const [users, setUsers] = useState([]);
@@ -54,17 +55,49 @@ function Faculty() {
   return (
     <>
       <Sidebar />
-      <div className="form-container">
-        <input
-          type="text"
-          value={searchKeyword}
-          placeholder="Enter EmployeeId"
-          onChange={(event) => setSearchKeyword(event.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      <div className="table_responsive">
-        <table className="styled-table">
+
+      <motion.div
+        initial={{ y: -200 }}
+        animate={{ y: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 10,
+          duration: 1.1,
+        }}
+      >
+        <div className="form-container">
+          <input
+            type="text"
+            value={searchKeyword}
+            placeholder="Enter EmployeeId"
+            onChange={(event) => setSearchKeyword(event.target.value)}
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+      </motion.div>
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: 0 }}
+        transition={{
+          type: "spring",
+          stiffness: 120,
+          damping: 10,
+          duration: 9.5,
+        }}
+        className="table_responsive"
+      >
+        <motion.table
+          initial={{ x: "-100%" }}
+          animate={{ x: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 120,
+            damping: 10,
+            duration: 9.5,
+          }}
+          className="styled-table"
+        >
           <thead>
             <tr>
               <th>Name</th>
@@ -141,8 +174,9 @@ function Faculty() {
               ))
             )}
           </tbody>
-        </table>
-      </div>
+        </motion.table>
+      </motion.div>
+
       <div>
         <button className="backButton" onClick={() => navigate("/faculty")}>
           Back

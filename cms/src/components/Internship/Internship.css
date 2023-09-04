@@ -1,12 +1,11 @@
-/* BeautifulForm.css */
 .formContainer {
   background-color: #fff;
-  /* box-shadow: 250px 150px 110px rgba(0, 0, 0, 0.1); */
   border-radius: 8px;
   padding: 30px;
   width: 415px;
   font-family: Arial, sans-serif;
   margin-left: 500px;
+  max-height: 550px;
 }
 
 h2 {
@@ -39,6 +38,7 @@ input {
   justify-content: flex-end;
   gap: 10px;
   margin-left: 620px;
+  margin-top: -35px;
 }
 
 .submit-button {
@@ -60,7 +60,6 @@ input {
   border-radius: 4px;
   color: #fff;
   cursor: pointer;
-  /* width: 60px; */
 }
 
 .submit-button:hover,

@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Container, Stack } from "@mui/material";
+import "./Student.css";
 
 const style = {
   position: "absolute",
@@ -100,66 +101,26 @@ function Student() {
   return (
     <>
       <Sidebar />
-      <div>
+      <div className="stuImg">
         <Modal
           open={open}
           onClose={handleClose}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          {/* <Box sx={style}>
-            <Typography
-              variant="h5"
-              style={{ textAlign: "center", color: "black" }}
-            >
-              Student Record
-            </Typography>
-            <Container
-              style={{
-                display: "flex",
-                height: "90%",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Button
-                onClick={toggleModalOpen}
-                className="btn-modal"
-                style={{
-                  background: "#d3386c",
-                  color: "#fff",
-                }}
-              >
-                Add Student Record
-              </Button>
-
-              <Button
-                className="btn-modal"
-                onClick={() => {
-                  navigate("/getStudent");
-                }}
-                style={{
-                  background: "#d3386c",
-                  color: "#fff",
-                }}
-              >
-                List Student Records
-              </Button>
-            </Container>
-          </Box> */}
           <Box
             sx={{
               position: "absolute",
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "70%", // Adjust width for smaller devices
-              maxWidth: 500, // Set a maximum width for larger screens
-              height: "auto", // Let the content determine the height
+              width: "70%",
+              maxWidth: 500,
+              height: "auto",
               bgcolor: "background.paper",
               border: "2px solid #000",
               boxShadow: 24,
-              p: 2, // Adjust padding for smaller devices
+              p: 2,
               zIndex: 1,
             }}
           >
@@ -168,7 +129,7 @@ function Student() {
               style={{
                 textAlign: "center",
                 color: "black",
-                fontSize: "1.5rem", // Adjust font size for smaller devices
+                fontSize: "1.5rem",
               }}
             >
               Student Record
