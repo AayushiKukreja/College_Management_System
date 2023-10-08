@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import "./EditStudent.css";
 
 function EditStudent() {
   const { id } = useParams();
@@ -173,7 +174,7 @@ function EditStudent() {
             value="Update"
           />
           <button
-            className="close-modal"
+            className="closee-modal"
             onClick={(e) => {
               navigate("/getStudent");
             }}

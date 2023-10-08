@@ -25,6 +25,9 @@ import Workshop from "./components/Workshop/Workshop.js";
 import ViewWorkshop from "./components/ViewWorkshop/ViewWorkshop";
 import { useState, useEffect } from "react";
 import Protected from "./components/Protected";
+import WorkshopRegistrations from "./components/WorkshopRegistrations/WorkshopRegistrations";
+import Activities from "./components/Activities/Activities";
+import ShowActivity from "./components/ShowActivity/ShowActivity";
 library.add(fas);
 
 function App() {
@@ -209,6 +212,30 @@ function App() {
             element={
               <Protected authUser={authUser}>
                 <ViewWorkshop />
+              </Protected>
+            }
+          />
+          <Route
+            path="/workshopRegistrations"
+            element={
+              <Protected authUser={authUser}>
+                <WorkshopRegistrations />
+              </Protected>
+            }
+          />
+          <Route
+            path="/activity"
+            element={
+              <Protected authUser={authUser}>
+                <Activities />
+              </Protected>
+            }
+          />
+          <Route
+            path="/showactivity"
+            element={
+              <Protected authUser={authUser}>
+                <ShowActivity />
               </Protected>
             }
           />

@@ -42,7 +42,7 @@ textarea {
   cursor: pointer;
 }
 .researchTitle {
-  margin-left: 130px;
+  margin-left: 10px;
   margin-top: 50px;
 }
 .button-Container {
@@ -72,4 +72,42 @@ textarea {
   color: #fff;
   cursor: pointer;
   margin-right: 100px;
+}
+/* CSS for the dropdown */
+.author-dropdown {
+  list-style: none;
+  padding: 0;
+  margin-top: 4px;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  margin-left: 60px;
+}
+
+.author-dropdown li {
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.author-dropdown li:hover {
+  background-color: #f0f0f0; /* Highlight on hover */
+}
+
+/* Style for the input field */
+#authors {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Add some spacing between input and dropdown */
+.form-group {
+  margin-bottom: 16px;
 }

@@ -28,23 +28,14 @@ function Student() {
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const handleOpen = () => setOpen(true);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [empId, setEmpId] = useState("");
-  const [gender, setGender] = useState("");
-  const [dept, setDept] = useState("");
-  const [passingYear, setPassingYear] = useState("");
-  const [dob, setDob] = useState("");
   const [modal, setModal] = useState(false);
-  const [setInputType, inputType] = useState("text");
-
+  const [selectedfile, setFile] = useState(null);
   const toggleModal = () => {
     setModal(!modal);
     setOpen(true);
   };
 
   const handleClose = () => {
-    //setOpen(false);
     navigate("/home");
   };
 
@@ -59,28 +50,29 @@ function Student() {
     document.body.classList.remove("active-modal");
   }
 
-  function Submit(e) {
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      const fileExtension = fileName.split(".").pop().toLowerCase();
+
+      const allowedExtensions = ["xls", "csv", "xlsx"];
+
+      if (allowedExtensions.includes(fileExtension)) {
+        setFile(file);
+      } else {
+        alert("Invalid file extension. Please choose a valid file.");
+      }
+    }
+  };
+
+  function submit(e) {
     e.preventDefault();
-    console.log(email);
-    if (
-      email == "" ||
-      name == "" ||
-      empId == "" ||
-      gender == "" ||
-      dept == "" ||
-      passingYear == "" ||
-      dob == ""
-    ) {
-      alert("Please Fill The Form Completely!!");
+    if (selectedfile === null) {
+      alert("Please attach a file!!");
     } else {
       const fData = new FormData();
-      fData.append("email", email);
-      fData.append("name", name);
-      fData.append("empId", empId);
-      fData.append("gender", gender);
-      fData.append("dept", dept);
-      fData.append("passingYear", passingYear);
-      fData.append("dob", dob);
+      fData.append("file", selectedfile);
 
       axios({
         method: "post",
@@ -90,7 +82,7 @@ function Student() {
       })
         .then(function (response) {
           console.log(response);
-          alert("New Student Successfully Added.");
+          alert("New file Successfully Added.");
         })
         .catch(function (response) {
           console.log(response);
@@ -176,116 +168,26 @@ function Student() {
       <section>
         {modal && (
           <div className="modal">
-            <div onClick={toggleModal} className="overlay"></div>
-            <div class="form-box">
-              <div class="form-value">
-                <form>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      name="name"
-                      placeholder="Enter your name"
-                      onChange={(e) => {
-                        setName(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      name="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Enter your enrollment id"
-                      name="empId"
-                      onChange={(e) => {
-                        setEmpId(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Gender"
-                      name="gender"
-                      onChange={(e) => {
-                        setGender(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Department"
-                      name="dept"
-                      onChange={(e) => {
-                        setDept(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Passing Year"
-                      name="passingYear"
-                      onChange={(e) => {
-                        setPassingYear(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      placeholder="DOB"
-                      type="text"
-                      required
-                      autoComplete="off"
-                      onChange={(e) => {
-                        setDob(e.target.value);
-                      }}
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => (e.target.type = "text")}
-                    />
-                  </div>
-                  <input
-                    class="loginButton"
-                    type="submit"
-                    id="sumbit"
-                    name="submit"
-                    value="submit"
-                    onClick={(e) => {
-                      Submit(e);
-                    }}
-                  />
-                  <button className="close-modal" onClick={toggleModal}>
-                    CLOSE
-                  </button>
-                </form>
-              </div>
+            <div className="overlay">
+              <form className="modal-form" enctype="multipart/form-data">
+                <input
+                  type="file"
+                  name="import_file"
+                  onChange={handleFileChange}
+                  className="file-input"
+                />
+                <button
+                  type="submit"
+                  name="save_excel_data"
+                  onClick={(event) => submit(event)}
+                  className="import-button"
+                >
+                  Import
+                </button>
+                <button className="close-modal" onClick={toggleModal}>
+                  CLOSE
+                </button>
+              </form>
             </div>
           </div>
         )}

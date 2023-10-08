@@ -117,7 +117,12 @@ function GetStudent() {
             </tr>
           </thead>
           <tbody>
-            {searchKeyword == "" &&
+            {show && searchKeyword == "" && users == "No data found." ? (
+              <td colSpan="8">
+                <h1>No Data found!!</h1>
+              </td>
+            ) : (
+              searchKeyword == "" &&
               users.map((user, key) => (
                 <tr key={key}>
                   <td>{user.sname}</td>
@@ -137,14 +142,26 @@ function GetStudent() {
                       </Link>
                       <button
                         className="delete-button"
-                        onClick={() => deleteUser(user.enrollmentId)}
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(user.enrollmentId);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
 
             {!show &&
             searchKeyword != "" &&
@@ -171,9 +188,18 @@ function GetStudent() {
                       </Link>
                       <button
                         className="delete-button"
-                        onClick={() =>
-                          deleteUser(searchResults[0].enrollmentId)
-                        }
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(searchResults[0].enrollmentId);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>

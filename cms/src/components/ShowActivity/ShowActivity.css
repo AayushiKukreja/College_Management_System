@@ -1,0 +1,30 @@
+.activities-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 180px;
+  margin-top: -90px;
+}
+.acSec {
+  overflow: hidden;
+  background-size: "cover";
+  background-position: "center";
+  width: "900px";
+  height: "900px";
+  opacity: "0.6";
+}
+.activity-item {
+  position: relative;
+  width: 70%;
+  height: 300px;
+  margin-right: 160px;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 20px;
+  color: black;
+}
+.deletee-button {
+  margin-left: 768px;
+}

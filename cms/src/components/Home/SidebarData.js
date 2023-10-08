@@ -69,6 +69,31 @@ const SidebarData = [
         path: "/viewWorkshop",
         icon: <BsIcons.BsPeople />,
       },
+      {
+        title: "People Registered",
+        path: "/workshopRegistrations",
+        icon: <BsIcons.BsPeople />,
+      },
+    ],
+  },
+  {
+    title: "Activity",
+    path: "",
+    icon: <BsIcons.BsPeople />,
+    iconClosed: <RiIcons.RiArrowDownSFill />,
+    iconOpened: <RiIcons.RiArrowUpSFill />,
+
+    subNav: [
+      {
+        title: "Upload Activites",
+        path: "/activity",
+        icon: <BsIcons.BsPeople />,
+      },
+      {
+        title: "Show Activities",
+        path: "/showactivity",
+        icon: <BsIcons.BsPeople />,
+      },
     ],
   },
 ];

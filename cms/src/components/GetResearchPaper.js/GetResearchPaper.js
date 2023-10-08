@@ -228,7 +228,18 @@ const GetResearchPaper = () => {
                     <div class="action-btn">
                       <button
                         className="delete-button"
-                        onClick={() => deleteUser(researchData[key].id)}
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(researchData[key].id);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>
@@ -282,7 +293,18 @@ const GetResearchPaper = () => {
                     <div class="action-btn">
                       <button
                         className="delete-button"
-                        onClick={() => deleteUser(searchResults.paperId)}
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(searchResults.paperId);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>

@@ -189,7 +189,7 @@ function EditFaculty() {
             value="Update"
           />
           <button
-            className="close-modal"
+            className="closee-modal"
             onClick={(e) => {
               navigate("/getFaculty");
             }}

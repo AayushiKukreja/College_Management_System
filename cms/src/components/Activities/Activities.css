@@ -1,0 +1,45 @@
+/* Add this CSS to your style file or component */
+
+.activity-form {
+  width: 800px;
+  margin-top: 60px;
+  margin-left: 390px;
+  padding: 40px;
+  background-color: #e1e9fc;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.activity-form label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+  color: #333;
+}
+.acButton {
+  margin-left: 290px;
+}
+
+.activity-form input,
+.activity-form textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.activity-form button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.activity-form button:hover {
+  background-color: #45a049;
+}

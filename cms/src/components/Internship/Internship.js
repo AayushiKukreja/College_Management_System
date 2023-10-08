@@ -79,7 +79,7 @@ function Internship() {
         transition={{ type: "spring", stiffness: 120, damping: 10 }}
       >
         <center>
-          <h2>Add Internship Record</h2>
+          <h2 className="internH2">Add Internship Record</h2>
         </center>
         <div className="formContainer">
           <motion.form

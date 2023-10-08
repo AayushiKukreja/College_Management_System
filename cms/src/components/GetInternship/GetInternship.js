@@ -117,7 +117,12 @@ function GetInternship() {
             </tr>
           </thead>
           <tbody>
-            {searchKeyword == "" &&
+            {show && searchKeyword == "" && users == "No data found." ? (
+              <td colSpan="8">
+                <h1>No Data found!!</h1>
+              </td>
+            ) : (
+              searchKeyword == "" &&
               users.map((user, key) => (
                 <tr key={key}>
                   <td>{user.sname}</td>
@@ -138,14 +143,26 @@ function GetInternship() {
                       </Link>
                       <button
                         className="delete-button"
-                        onClick={() => deleteUser(user.id)}
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(user.id);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              ))
+            )}
             {!show &&
             searchKeyword != "" &&
             searchResults == "No matching records found." ? (
@@ -175,7 +192,18 @@ function GetInternship() {
                       </Link>
                       <button
                         className="delete-button"
-                        onClick={() => deleteUser(searchResults[0].id)}
+                        onClick={() => {
+                          var userResponse = window.confirm(
+                            "Do you want to continue?"
+                          );
+
+                          if (userResponse) {
+                            deleteUser(searchResults[0].id);
+                            alert("You chose to continue.");
+                          } else {
+                            alert("You chose to cancel.");
+                          }
+                        }}
                       >
                         Delete
                       </button>

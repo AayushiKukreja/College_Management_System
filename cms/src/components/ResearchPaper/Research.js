@@ -9,11 +9,13 @@ import { motion } from "framer-motion";
 const Research = () => {
   const [paperId, setPaperId] = useState("");
   const [title, setTitle] = useState("");
-  const [authors, setAuthors] = useState("");
   const [publicationDate, setPublicationDate] = useState("");
   const [abstract, setAbstract] = useState("");
   const [url, setUrl] = useState("");
   const [role, setRole] = useState("");
+  const [showDropdown, setShowDropdown] = useState([true]);
+  const [authorsList, setAuthorsList] = useState([{ name: "" }]);
+  const [selectedAuthors, setSelectedAuthors] = useState([]);
   let navigate = useNavigate();
 
   const formVariants = {
@@ -39,13 +41,17 @@ const Research = () => {
       },
     },
   };
+  const addAuthorField = () => {
+    setAuthorsList([...authorsList, { name: "" }]);
+    setShowDropdown([...showDropdown, true]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
       paperId == "" ||
       title == "" ||
-      authors == "" ||
+      selectedAuthors == "" ||
       publicationDate == "" ||
       abstract == "" ||
       url == "" ||
@@ -56,7 +62,7 @@ const Research = () => {
       const fData = new FormData();
       fData.append("paperId", paperId);
       fData.append("title", title);
-      fData.append("authors", authors);
+      fData.append("authors", selectedAuthors);
       fData.append("publicationDate", publicationDate);
       fData.append("abstract", abstract);
       fData.append("url", url);
@@ -78,6 +84,57 @@ const Research = () => {
     }
   };
 
+  const fetchAuthors = async (partialName, index) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8080/db/getAuthors.php?partialName=${partialName}`
+      );
+      const authorNamesArray = response.data;
+      const updatedAuthors = [...authorsList];
+      updatedAuthors[index].names = authorNamesArray.filter(
+        (authorName) => authorName !== updatedAuthors[index].name
+      );
+      setAuthorsList(updatedAuthors);
+    } catch (error) {
+      console.error("Error fetching authors: ", error);
+    }
+  };
+
+  const handleAuthorInputChange = (e, index) => {
+    const partialName = e.target.value;
+    const updatedAuthors = [...authorsList];
+    updatedAuthors[index].name = partialName;
+    setAuthorsList(updatedAuthors);
+    fetchAuthors(partialName, index);
+  };
+
+  const handleAuthorSelection = (authorName, index) => {
+    const updatedAuthors = [...authorsList];
+    updatedAuthors[index].name = authorName;
+    setAuthorsList(updatedAuthors);
+    const updatedDropdownVisibility = [...showDropdown];
+    updatedDropdownVisibility[index] = false;
+    setShowDropdown(updatedDropdownVisibility);
+    const updatedSelectedAuthors = [...selectedAuthors, authorName];
+    setSelectedAuthors(updatedSelectedAuthors);
+  };
+
+  const handleAuthorDelete = (index) => {
+    const deletedAuthor = authorsList[index].name;
+    const updatedAuthors = [...authorsList];
+    updatedAuthors.splice(index, 1);
+    setAuthorsList(updatedAuthors);
+
+    const updatedDropdownVisibility = [...showDropdown];
+    updatedDropdownVisibility.splice(index, 1);
+    setShowDropdown(updatedDropdownVisibility);
+
+    const updatedSelectedAuthors = selectedAuthors.filter(
+      (author) => author !== deletedAuthor
+    );
+    setSelectedAuthors(updatedSelectedAuthors);
+  };
+  console.log(selectedAuthors);
   return (
     <>
       <Sidebar />
@@ -123,19 +180,51 @@ const Research = () => {
               id="title"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="authors">Authors:</label>
-            <input
-              required
-              type="text"
-              name="authors"
-              autoComplete="off"
-              onChange={(e) => {
-                setAuthors(e.target.value);
-              }}
-              id="authors"
-            />
-          </div>
+          {authorsList.map((author, index) => (
+            <div className="form-group" key={index}>
+              <label htmlFor={`author-${index}`}>Author {index + 1}:</label>
+              <div className="author-input">
+                <input
+                  required
+                  type="text"
+                  name={`author-${index}`}
+                  autoComplete="off"
+                  value={author.name}
+                  onChange={(e) => handleAuthorInputChange(e, index)}
+                />
+                {index === authorsList.length - 1 && (
+                  <button type="button" onClick={addAuthorField}>
+                    +
+                  </button>
+                )}
+                {index !== 0 && (
+                  <button
+                    type="button"
+                    onClick={() => handleAuthorDelete(index)}
+                  >
+                    Delete
+                  </button>
+                )}
+              </div>
+              {showDropdown[index] &&
+                author &&
+                author.name &&
+                Array.isArray(author.names) &&
+                author.names.length > 0 && (
+                  <ul className="author-dropdown">
+                    {author.names.map((authorName) => (
+                      <li
+                        key={authorName}
+                        onClick={() => handleAuthorSelection(authorName, index)}
+                      >
+                        {authorName}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+            </div>
+          ))}
+
           <div className="form-group">
             <label htmlFor="publicationDate">Publication Date:</label>
             <input
@@ -190,7 +279,6 @@ const Research = () => {
               <option>Student</option>
             </select>
           </div>
-
           <div className="button-Container">
             <motion.button
               type="submit"

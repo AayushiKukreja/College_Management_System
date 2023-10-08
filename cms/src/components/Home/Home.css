@@ -3,8 +3,6 @@
 
 body {
   background: #dfe9f5;
-  /* overflow: hidden; */
-  overflow: auto;
 }
 .dataButton {
   margin: 0;
@@ -17,7 +15,6 @@ body {
 }
 .containerr {
   display: flex;
-  /* margin-top: 4px; */
   background-image: url("./graphic.jpeg");
   background-size: cover;
   background-repeat: no-repeat;

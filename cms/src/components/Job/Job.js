@@ -72,7 +72,7 @@ function Job() {
         transition={{ type: "spring", stiffness: 120, damping: 10 }}
       >
         <center>
-          <h2>Add Job Record</h2>
+          <h2 className="jobH2">Add Job Record</h2>
         </center>
         <div className="formmContainer">
           <motion.form

@@ -27,24 +27,15 @@ const style = {
 
 function Faculty() {
   let navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [empId, setEmpId] = useState("");
-  const [gender, setGender] = useState("");
-  const [dept, setDept] = useState("");
-  const [higherStudies, setHigherStudies] = useState("");
-  const [dob, setDob] = useState("");
-  const [designation, setDesignation] = useState("");
   const [modal, setModal] = useState(false);
   const [open, setOpen] = React.useState(true);
-
+  const [selectedfile, setFile] = useState(null);
   const toggleModal = () => {
     setModal(!modal);
     setOpen(true);
   };
 
   const handleClose = () => {
-    //setOpen(false);
     navigate("/home");
   };
 
@@ -58,29 +49,30 @@ function Faculty() {
   } else {
     document.body.classList.remove("active-modal");
   }
-  function Submit(e) {
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const fileName = file.name;
+      const fileExtension = fileName.split(".").pop().toLowerCase();
+
+      const allowedExtensions = ["xls", "csv", "xlsx"];
+
+      if (allowedExtensions.includes(fileExtension)) {
+        setFile(file);
+      } else {
+        alert("Invalid file extension. Please choose a valid file.");
+      }
+    }
+  };
+
+  function submit(e) {
     e.preventDefault();
-    if (
-      email == "" ||
-      name == "" ||
-      empId == "" ||
-      gender == "" ||
-      dept == "" ||
-      higherStudies == "" ||
-      designation == "" ||
-      dob == ""
-    ) {
-      alert("Please Fill The Form Completely!!");
+    if (selectedfile === null) {
+      alert("Please attach a file!!");
     } else {
       const fData = new FormData();
-      fData.append("email", email);
-      fData.append("name", name);
-      fData.append("empId", empId);
-      fData.append("gender", gender);
-      fData.append("dept", dept);
-      fData.append("higherStudies", higherStudies);
-      fData.append("designation", designation);
-      fData.append("dob", dob);
+      fData.append("file", selectedfile);
 
       axios({
         method: "post",
@@ -90,14 +82,13 @@ function Faculty() {
       })
         .then(function (response) {
           console.log(response);
-          alert("New faculty Successfully Added.");
+          alert("New file Successfully Added.");
         })
         .catch(function (response) {
           console.log(response);
         });
     }
   }
-
   return (
     <>
       <Sidebar />
@@ -176,129 +167,26 @@ function Faculty() {
       <section>
         {modal && (
           <div className="modal">
-            <div onClick={toggleModal} className="overlay"></div>
-            <div class="form-box">
-              <div class="form-value">
-                <form>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      name="name"
-                      placeholder="Enter your name"
-                      onChange={(e) => {
-                        setName(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="email"
-                      placeholder="Enter your email"
-                      value={email}
-                      name="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Enter your employee id"
-                      name="empId"
-                      onChange={(e) => {
-                        setEmpId(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Gender"
-                      name="gender"
-                      onChange={(e) => {
-                        setGender(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Department"
-                      name="dept"
-                      onChange={(e) => {
-                        setDept(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      autoComplete="off"
-                      type="text"
-                      placeholder="Higher Studies"
-                      name="higherStudies"
-                      onChange={(e) => {
-                        setHigherStudies(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      type="text"
-                      placeholder="DOB"
-                      name="dob"
-                      onChange={(e) => {
-                        setDob(e.target.value);
-                      }}
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => (e.target.type = "text")}
-                    ></input>
-                  </div>
-                  <div class="inputbox">
-                    <ion-icon name="lock-closed-outline"></ion-icon>
-                    <input
-                      required
-                      type="text"
-                      autoComplete="off"
-                      placeholder="Designation"
-                      name="designation"
-                      onChange={(e) => {
-                        setDesignation(e.target.value);
-                      }}
-                    ></input>
-                  </div>
-                  <input
-                    class="loginButton"
-                    type="submit"
-                    id="sumbit"
-                    name="submit"
-                    value="submit"
-                    onClick={(e) => {
-                      Submit(e);
-                    }}
-                  />
-                  <button className="close-modal" onClick={toggleModal}>
-                    CLOSE
-                  </button>
-                </form>
-              </div>
+            <div className="overlay">
+              <form className="modal-form" enctype="multipart/form-data">
+                <input
+                  type="file"
+                  name="import_file"
+                  onChange={handleFileChange}
+                  className="file-input"
+                />
+                <button
+                  type="submit"
+                  name="save_excel_data"
+                  onClick={(event) => submit(event)}
+                  className="import-button"
+                >
+                  Import
+                </button>
+                <button className="close-modal" onClick={toggleModal}>
+                  CLOSE
+                </button>
+              </form>
             </div>
           </div>
         )}
