@@ -34,8 +34,64 @@ const WorkshopRegistrations = () => {
   return (
     <>
       <Sidebar />
-      <div className="WorkImg">
-        <div className="workshop-container">
+      <section>
+        <div className="WorkImg">
+          <div className="workshop-container">
+            <div
+              className="workshop-reg-container"
+              style={{
+                padding: "10px",
+                borderRadius: "8px",
+                margin: "150px",
+              }}
+            >
+              <button className="view-reg-button" onClick={openModal}>
+                View Registrations
+              </button>
+            </div>
+
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              contentLabel="Workshop Registrations"
+              className="modall"
+              overlayClassName="overlay"
+            >
+              <h2>Workshop Registrations</h2>
+              <table className="workTable">
+                <thead>
+                  <tr>
+                    <th>Workshop ID</th>
+                    <th>User Name</th>
+                    <th>Workshop Name</th>
+                    <th>Instructor Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workshopData.map((registration, index) => (
+                    <tr key={index}>
+                      <td>{registration.workshop_id}</td>
+                      <td>{registration.user_email}</td>
+                      <td>{registration.name}</td>
+                      <td>{registration.instructor}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button className="close-button" onClick={closeModal}>
+                Close
+              </button>
+            </Modal>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div className="secImg">
+          <img
+            src="./work.png"
+            alt="Description of the image"
+            style={{ maxWidth: "100%", height: "auto", opacity: 0.6 }}
+          />
           <div
             className="workshop-reg-container"
             style={{
@@ -48,41 +104,8 @@ const WorkshopRegistrations = () => {
               View Registrations
             </button>
           </div>
-
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Workshop Registrations"
-            className="modall"
-            overlayClassName="overlay"
-          >
-            <h2>Workshop Registrations</h2>
-            <table className="workTable">
-              <thead>
-                <tr>
-                  <th>Workshop ID</th>
-                  <th>User Name</th>
-                  <th>Workshop Name</th>
-                  <th>Instructor Name</th>
-                </tr>
-              </thead>
-              <tbody>
-                {workshopData.map((registration, index) => (
-                  <tr key={index}>
-                    <td>{registration.workshop_id}</td>
-                    <td>{registration.user_email}</td>
-                    <td>{registration.name}</td>
-                    <td>{registration.instructor}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <button className="close-button" onClick={closeModal}>
-              Close
-            </button>
-          </Modal>
         </div>
-      </div>
+      </section>
     </>
   );
 };
