@@ -36,7 +36,6 @@ const ResearchPaper = () => {
           publicationDate: res.data[0].publicationDate,
           abstract: res.data[0].abstract,
           url: res.data[0].url,
-          role: res.data[0].role,
         });
       });
   }
@@ -67,14 +66,15 @@ const ResearchPaper = () => {
           </div>
           <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
-            <input
-              required
-              type="text"
-              readOnly
-              placeholder="Authors"
-              value={inputs.authors}
-            ></input>
+            {inputs.authors &&
+              JSON.parse(inputs.authors).map((author, index) => (
+                <div key={index}>
+                  <p style={{ fontSize: "15px" }}>Name: {author.name}</p>
+                  <p style={{ fontSize: "15px" }}>Role: {author.role}</p>
+                </div>
+              ))}
           </div>
+
           <div class="inputBox">
             <ion-icon name="lock-closed-outline"></ion-icon>
             <input
@@ -107,17 +107,6 @@ const ResearchPaper = () => {
               value={inputs.url}
             ></input>
           </div>
-          <div class="inputBox">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <input
-              required
-              type="text"
-              placeholder="Role"
-              readOnly
-              value={inputs.role}
-            ></input>
-          </div>
-
           <button
             className="closeModal"
             onClick={(e) => {

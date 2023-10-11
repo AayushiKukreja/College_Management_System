@@ -10,7 +10,6 @@ import { motion } from "framer-motion";
 const GetResearchPaper = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [role, setRole] = useState("");
   const [researchData, setResearchData] = useState([]);
   const [show, setShow] = useState(true);
   let navigate = useNavigate();
@@ -65,7 +64,7 @@ const GetResearchPaper = () => {
     axios
       .get("http://localhost:8080/db/research.php/")
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         setResearchData(response.data);
       });
   }, []);
@@ -74,35 +73,17 @@ const GetResearchPaper = () => {
     axios
       .get("http://localhost:8080/db/research.php/")
       .then(function (response) {
-        console.log(response);
+        console.log(response.data);
         setResearchData(response.data);
       });
   }
-  const handleFind = () => {
-    console.log(role);
-
-    axios
-      .get("http://localhost:8080/db/getResearch.php", {
-        params: {
-          keyword: role,
-        },
-      })
-      .then((response) => {
-        setResearchData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   console.log(researchData);
-
   const deleteUser = (id) => {
     axios
       .delete(`http://localhost:8080/db/research.php/${id}/delete`)
       .then(function (response) {
         console.log(response.data);
-        role == "" ? getUsers() : handleFind();
+        getUsers();
       });
   };
 
@@ -121,6 +102,7 @@ const GetResearchPaper = () => {
         console.error(error);
       });
   };
+
   const truncateText = (text) => {
     return text.slice(0, 50) + (text.length > 20 ? "....." : "");
   };
@@ -146,26 +128,6 @@ const GetResearchPaper = () => {
             Search
           </button>
         </motion.div>
-        <motion.div
-          className="input-bar"
-          variants={inputBarVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <input
-            type="text"
-            placeholder="Get Data of Student/Teacher"
-            autoComplete="off"
-            name="role"
-            value={role}
-            onChange={(e) => {
-              setRole(e.target.value);
-            }}
-          />
-          <button className="search-btn" onClick={handleFind}>
-            Search
-          </button>
-        </motion.div>
       </div>
       <div className="table_responsive">
         <motion.table className="styled-table">
@@ -177,22 +139,20 @@ const GetResearchPaper = () => {
               <th>Publication Date</th>
               <th>Abstract</th>
               <th>Url</th>
-              <th>Role</th>
               <th>Actions</th>
             </tr>
           </thead>
           <motion.tbody>
-            {show &&
-            searchKeyword == "" &&
-            researchData == "No matching records found." ? (
+            {!Array.isArray(researchData) && show && searchKeyword === "" ? (
               <motion.tr variants={rowVariants}>
                 <td colSpan="8">
                   <h1>No Data found!!</h1>
                 </td>
               </motion.tr>
             ) : (
-              searchKeyword == "" &&
-              researchData.map((user, key) => (
+              searchKeyword === "" &&
+              Array.isArray(researchData) &&
+              researchData?.map((user, key) => (
                 <motion.tr
                   variants={rowVariants}
                   key={key}
@@ -205,8 +165,19 @@ const GetResearchPaper = () => {
                   <motion.td variants={cellVariants}>
                     {researchData[key].title}
                   </motion.td>
-                  <motion.td variants={cellVariants}>
-                    {researchData[key]?.authors}
+                  <motion.td variants={cellVariants} className="role">
+                    {JSON.parse(researchData[key].authors).map(
+                      (author, index) => (
+                        <div key={index}>
+                          <p style={{ fontSize: "15px" }}>
+                            Name: {author.name}
+                          </p>
+                          <p style={{ fontSize: "15px" }}>
+                            Role: {author.role}
+                          </p>
+                        </div>
+                      )
+                    )}
                   </motion.td>
                   <motion.td variants={cellVariants}>
                     {researchData[key]?.publicationDate}
@@ -219,13 +190,12 @@ const GetResearchPaper = () => {
                       className="link"
                       href={researchData[key]?.url}
                       target="_blank"
-                    >{`${researchData[key]?.url}`}</a>
+                    >
+                      {`${researchData[key]?.url}`}
+                    </a>
                   </motion.td>
                   <motion.td variants={cellVariants}>
-                    {researchData[key]?.role}
-                  </motion.td>
-                  <motion.td variants={cellVariants}>
-                    <div class="action-btn">
+                    <div className="action-btn">
                       <button
                         className="delete-button"
                         onClick={() => {
@@ -252,21 +222,20 @@ const GetResearchPaper = () => {
                 </motion.tr>
               ))
             )}
-            {!show &&
-            searchKeyword != "" &&
-            searchResults == "No matching records found." ? (
+            {!show && searchKeyword !== "" && searchResults.length === 0 ? (
               <motion.tr variants={rowVariants}>
                 <td colSpan="8">
                   <h1>No Data found!!</h1>
                 </td>
               </motion.tr>
             ) : (
-              searchKeyword != "" &&
+              searchKeyword !== "" &&
               searchResults.map((user, key) => (
                 <motion.tr
                   variants={rowVariants}
                   initial="hidden"
                   animate="visible"
+                  key={key}
                 >
                   <motion.td variants={cellVariants}>
                     {searchResults[0]?.paperId}
@@ -275,7 +244,14 @@ const GetResearchPaper = () => {
                     {searchResults[0]?.title}
                   </motion.td>
                   <motion.td variants={cellVariants}>
-                    {searchResults[0]?.authors}
+                    {JSON.parse(searchResults[0]?.authors).map(
+                      (author, index) => (
+                        <div key={index}>
+                          <p>Name: {author.name}</p>
+                          <p>Role: {author.role}</p>
+                        </div>
+                      )
+                    )}
                   </motion.td>
                   <motion.td variants={cellVariants}>
                     {searchResults[0]?.publicationDate}
@@ -287,10 +263,7 @@ const GetResearchPaper = () => {
                     {searchResults[0]?.url}
                   </motion.td>
                   <motion.td variants={cellVariants}>
-                    {searchResults[0]?.role}
-                  </motion.td>
-                  <motion.td variants={cellVariants}>
-                    <div class="action-btn">
+                    <div className="action-btn">
                       <button
                         className="delete-button"
                         onClick={() => {

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Activities.css";
 import Sidebar from "../Home/Sidebar";
+import { useEffect } from "react";
+//import "bootstrap/dist/css/bootstrap.min.css";
 
 function Activities() {
   const [formData, setFormData] = useState({
@@ -10,32 +12,61 @@ function Activities() {
     datetime: "",
     location: "",
     organizer: "",
-    photosVideos: null,
+    photosVideos: [],
+    dept: "",
   });
+
+  const [facultyOptions, setFacultyOptions] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/db/faculty.php/")
+      .then((response) => {
+        const usernames = response.data.map((user) => user.username);
+        setFacultyOptions(usernames);
+      })
+      .catch((error) => {
+        console.error("Error fetching faculty names:", error);
+      });
+  }, []);
+
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
-      setFormData({ ...formData, photosVideos: file });
+    const files = e.target.files;
+    const validTypes = ["image/jpeg", "image/png", "video/mp4"];
+
+    const validFiles = Array.from(files).filter((file) =>
+      validTypes.includes(file.type)
+    );
+
+    if (validFiles.length > 0) {
+      setFormData({
+        ...formData,
+        photosVideos: [...formData.photosVideos, ...validFiles],
+      });
     } else {
-      alert("Please upload a JPEG or PNG image.");
+      alert("Please upload valid files (JPEG, PNG, or MP4).");
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formdata = new FormData();
+
+    formData.photosVideos.forEach((file) => {
+      formdata.append("photosVideos[]", file);
+    });
+
     formdata.append("title", formData.title);
     formdata.append("description", formData.description);
     formdata.append("datetime", formData.datetime);
     formdata.append("location", formData.location);
     formdata.append("organizer", formData.organizer);
-    formdata.append("photosVideos", formData.photosVideos);
+    formdata.append("dept", formData.dept);
 
     axios
       .post("http://localhost:8080/db/activities.php", formdata)
@@ -53,15 +84,21 @@ function Activities() {
       <form className="activity-form" onSubmit={handleSubmit}>
         <h1>Activity Form</h1>
         <label htmlFor="title">Title:</label>
-        <input
-          type="text"
+        <select
           id="title"
           name="title"
           onChange={handleChange}
           value={formData.title}
           required
           autoComplete="off"
-        />
+        >
+          <option value="">Select...</option>
+          <option value="Conference">Conference</option>
+          <option value="Workshop">Workshop</option>
+          <option value="Dance Activity">Dance Activity</option>
+          <option value="Music Acitvity">Music Acitvity</option>
+          <option value="Fest">Fest</option>
+        </select>
         <br />
 
         <label htmlFor="description">Description:</label>
@@ -101,24 +138,51 @@ function Activities() {
         <br />
 
         <label htmlFor="organizer">Organizer:</label>
-        <input
-          type="text"
-          id="organizer"
-          name="organizer"
-          onChange={handleChange}
-          value={formData.organizer}
-          required
-          autoComplete="off"
-        />
+        <div className="dropdown">
+          <select
+            id="organizer"
+            name="organizer"
+            value={formData.organizer}
+            onChange={handleChange}
+            autoComplete="off"
+          >
+            <option value="">Select an organizer...</option>
+            {facultyOptions.map((faculty, index) => (
+              <option key={index} value={faculty}>
+                {faculty}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <br />
 
-        <label htmlFor="photosVideos">Photo:</label>
+        <label htmlFor="department">Department:</label>
+        <select
+          type="text"
+          id="dept"
+          name="dept"
+          onChange={handleChange}
+          value={formData.dept}
+          required
+          autoComplete="off"
+        >
+          <option value="">Select...</option>
+          <option value="BTech">BTech</option>
+          <option value="MTech">MTech</option>
+          <option value="MSC">MSC</option>
+          <option value="BSC">BSC</option>
+        </select>
+        <br />
+
+        <label htmlFor="photosVideos">Photos/Videos:</label>
         <input
           type="file"
           id="photosVideos"
           name="photosVideos"
           accept="image/*, video/*"
           onChange={handleFileUpload}
+          multiple
           required
           autoComplete="off"
         />

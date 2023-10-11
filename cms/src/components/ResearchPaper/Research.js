@@ -12,9 +12,8 @@ const Research = () => {
   const [publicationDate, setPublicationDate] = useState("");
   const [abstract, setAbstract] = useState("");
   const [url, setUrl] = useState("");
-  const [role, setRole] = useState("");
   const [showDropdown, setShowDropdown] = useState([true]);
-  const [authorsList, setAuthorsList] = useState([{ name: "" }]);
+  const [authorsList, setAuthorsList] = useState([{ name: "", role: "" }]);
   const [selectedAuthors, setSelectedAuthors] = useState([]);
   let navigate = useNavigate();
 
@@ -42,7 +41,7 @@ const Research = () => {
     },
   };
   const addAuthorField = () => {
-    setAuthorsList([...authorsList, { name: "" }]);
+    setAuthorsList([...authorsList, { name: "", role: "student" }]); // Added role: "student"
     setShowDropdown([...showDropdown, true]);
   };
 
@@ -54,19 +53,17 @@ const Research = () => {
       selectedAuthors == "" ||
       publicationDate == "" ||
       abstract == "" ||
-      url == "" ||
-      role == ""
+      url == ""
     ) {
       alert("Please Fill The Form Completely!!");
     } else {
       const fData = new FormData();
       fData.append("paperId", paperId);
       fData.append("title", title);
-      fData.append("authors", selectedAuthors);
+      fData.append("authors", JSON.stringify(authorsList));
       fData.append("publicationDate", publicationDate);
       fData.append("abstract", abstract);
       fData.append("url", url);
-      fData.append("role", role);
       console.log(fData);
       axios({
         method: "post",
@@ -82,6 +79,15 @@ const Research = () => {
           alert("ERRORR!!!!");
         });
     }
+  };
+
+  const handleAuthorRoleChange = (e, index) => {
+    const role = e.target.value;
+    console.log(`Role: ${role}`);
+    const updatedAuthors = [...authorsList];
+    updatedAuthors[index] = { ...updatedAuthors[index], role: role };
+    console.log(updatedAuthors);
+    setAuthorsList(updatedAuthors);
   };
 
   const fetchAuthors = async (partialName, index) => {
@@ -115,7 +121,12 @@ const Research = () => {
     const updatedDropdownVisibility = [...showDropdown];
     updatedDropdownVisibility[index] = false;
     setShowDropdown(updatedDropdownVisibility);
-    const updatedSelectedAuthors = [...selectedAuthors, authorName];
+
+    const role = authorsList[index].role;
+    const updatedSelectedAuthors = [
+      ...selectedAuthors,
+      { name: authorName, role: role },
+    ];
     setSelectedAuthors(updatedSelectedAuthors);
   };
 
@@ -134,7 +145,7 @@ const Research = () => {
     );
     setSelectedAuthors(updatedSelectedAuthors);
   };
-  console.log(selectedAuthors);
+
   return (
     <>
       <Sidebar />
@@ -193,7 +204,11 @@ const Research = () => {
                   onChange={(e) => handleAuthorInputChange(e, index)}
                 />
                 {index === authorsList.length - 1 && (
-                  <button type="button" onClick={addAuthorField}>
+                  <button
+                    type="button"
+                    onClick={addAuthorField}
+                    style={{ margin: "0 5px" }}
+                  >
                     +
                   </button>
                 )}
@@ -201,10 +216,19 @@ const Research = () => {
                   <button
                     type="button"
                     onClick={() => handleAuthorDelete(index)}
+                    style={{ margin: "0 5px" }}
                   >
                     Delete
                   </button>
                 )}
+                <select
+                  value={author.role}
+                  onChange={(e) => handleAuthorRoleChange(e, index)}
+                >
+                  <option value="">Select..</option>
+                  <option value="student">Student</option>
+                  <option value="faculty">Faculty</option>
+                </select>
               </div>
               {showDropdown[index] &&
                 author &&
@@ -264,23 +288,9 @@ const Research = () => {
               id="url"
             />
           </div>
-          <div className="form-group">
-            <label htmlFor="url">Role:</label>
-            <select
-              required
-              name="role"
-              id="role"
-              onChange={(e) => {
-                setRole(e.target.value);
-              }}
-            >
-              <option>Choose</option>
-              <option>Teacher</option>
-              <option>Student</option>
-            </select>
-          </div>
           <div className="button-Container">
             <motion.button
+              style={{ margin: "0 5px" }}
               type="submit"
               className="submitButton"
               id="sumbit"

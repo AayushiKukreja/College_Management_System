@@ -43,3 +43,13 @@
 .activity-form button:hover {
   background-color: #45a049;
 }
+
+.activity-form select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23333' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M8.22 11.78a.75.75 0 0 0 1.06 0L12 9.06V9a3 3 0 0 0-6 0v.06l2.22 2.72zM8 13a.75.75 0 0 0 .75-.75V9a4.5 4.5 0 0 1 9 0v3.25a.75.75 0 0 0 1.5 0V9a6 6 0 0 0-12 0v3.25A.75.75 0 0 0 8 13z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px 18px;
+  padding-right: 30px;
+  margin-bottom: 20px;
+}

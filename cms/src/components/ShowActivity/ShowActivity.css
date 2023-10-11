@@ -28,3 +28,6 @@
 .deletee-button {
   margin-left: 768px;
 }
+#activityTable {
+  margin-right: 400px; /* Adjust this value as needed */
+}
