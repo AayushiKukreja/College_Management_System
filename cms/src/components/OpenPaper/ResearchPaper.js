@@ -108,7 +108,7 @@ const ResearchPaper = () => {
             ></input>
           </div>
           <button
-            className="closeModal"
+            className="closeModal bg-white"
             onClick={(e) => {
               navigate("/getResearchPaper");
             }}

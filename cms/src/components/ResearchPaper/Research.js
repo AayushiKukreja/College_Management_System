@@ -151,7 +151,7 @@ const Research = () => {
       <Sidebar />
       <div className="research">
         <motion.h2
-          className="researchTitle"
+          className="researchTitle text-3xl font-bold"
           variants={headingVariants}
           initial="hidden"
           animate="visible"

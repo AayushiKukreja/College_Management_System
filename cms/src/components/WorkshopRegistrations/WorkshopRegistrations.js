@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import "./WorkshopReg.css";
 import Sidebar from "../Home/Sidebar";
 
+Modal.setAppElement("#root");
+
 const WorkshopRegistrations = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [workshopData, setWorkshopData] = useState([]);
@@ -31,6 +33,7 @@ const WorkshopRegistrations = () => {
       });
   }, []);
 
+  // console.log(workshopData);
   return (
     <>
       <Sidebar />
@@ -57,30 +60,34 @@ const WorkshopRegistrations = () => {
               className="modall"
               overlayClassName="overlay"
             >
-              <h2>Workshop Registrations</h2>
-              <table className="workTable">
-                <thead>
-                  <tr>
-                    <th>Workshop ID</th>
-                    <th>User Name</th>
-                    <th>Workshop Name</th>
-                    <th>Instructor Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {workshopData.map((registration, index) => (
-                    <tr key={index}>
-                      <td>{registration.workshop_id}</td>
-                      <td>{registration.user_email}</td>
-                      <td>{registration.name}</td>
-                      <td>{registration.instructor}</td>
+              <div className="modal-content">
+                <h2>Workshop Registrations</h2>
+                <table className="workTable">
+                  <thead>
+                    <tr>
+                      <th>Workshop ID</th>
+                      <th>User Name</th>
+                      <th>Workshop Name</th>
+                      <th>Instructor Name</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-              <button className="close-button" onClick={closeModal}>
-                Close
-              </button>
+                  </thead>
+                  <tbody>
+                    {workshopData.map((registration, index) => (
+                      <tr key={index}>
+                        <td>{registration.workshop_id}</td>
+                        <td>{registration.user_email}</td>
+                        <td>{registration.name}</td>
+                        <td>{registration.instructor}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {/* <div className="flex justify-center mt-4">
+                  <button className="close-button" onClick={closeModal}>
+                    Close
+                  </button>
+                </div> */}
+              </div>
             </Modal>
           </div>
         </div>

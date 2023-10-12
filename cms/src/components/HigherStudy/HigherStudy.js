@@ -78,7 +78,7 @@ const HigherStudy = () => {
         variants={headingVariants}
         initial="initial"
         animate="animate"
-        className="higherH1"
+        className="higherH1 text-3xl font-bold"
       >
         Add Higher Study Record
       </motion.h2>

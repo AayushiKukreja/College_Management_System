@@ -2,15 +2,25 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ShowActivity.css";
 import Sidebar from "../Home/Sidebar";
-//import "bootstrap/dist/css/bootstrap.min.css";
-import { Modal, Carousel } from "react-bootstrap";
-import $ from "jquery";
-import "datatables.net-bs4";
+import { Carousel } from "react-responsive-carousel";
+import CustomModal from "./CustomModal";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function ShowActivity() {
   const [activities, setActivities] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [modalOpen, setModalIsOpen] = useState(false);
+
   const [selectedActivity, setSelectedActivity] = useState(null);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    document.body.style.overflow = "auto";
+  };
 
   useEffect(() => {
     const email = localStorage.getItem("email");
@@ -24,17 +34,11 @@ function ShowActivity() {
       .then((response) => {
         setActivities(response.data);
         console.log(response.data);
-
-        $(document).ready(function () {
-          $("#activityTable").DataTable();
-        });
       })
       .catch((error) => {
         console.error("Error fetching activities:", error);
       });
-  });
-
-  console.log(activities);
+  }, []);
 
   const handleDelete = (activityID) => {
     axios
@@ -60,7 +64,7 @@ function ShowActivity() {
     <>
       <Sidebar />
       <div className="container mt-4">
-        <table id="activityTable" className="table">
+        <table className="table">
           <thead>
             <tr>
               <th>Title</th>
@@ -73,11 +77,7 @@ function ShowActivity() {
             </tr>
           </thead>
           <tbody>
-            {activities == "No activity found" ? (
-              <td colSpan="8">
-                <h1>No Data found!!</h1>
-              </td>
-            ) : (
+            {activities.length ? (
               activities.map((activity) => (
                 <tr key={activity.ActivityID}>
                   <td>{activity.Title}</td>
@@ -87,14 +87,9 @@ function ShowActivity() {
                   <td>{activity.Organizer}</td>
                   <td>{activity.dept}</td>
                   <td>
-                    <div className="d-flex">
+                    <div className="space-x-2">
                       <button
-                        className="btn btn-danger"
-                        style={{
-                          padding: "0.25rem 0.5rem",
-                          fontSize: "0.875rem",
-                          lineHeight: "1.25",
-                        }}
+                        className="bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded text-xs"
                         onClick={() => {
                           let res = window.confirm("Do you want to delete?");
                           if (res) {
@@ -105,15 +100,10 @@ function ShowActivity() {
                         Delete
                       </button>
                       <button
-                        className="btn btn-primary"
-                        style={{
-                          padding: "0.25rem 0.5rem",
-                          fontSize: "0.875rem",
-                          lineHeight: "1.25",
-                        }}
+                        className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded text-xs"
                         onClick={() => {
-                          setShowModal(true);
                           setSelectedActivity(activity);
+                          openModal();
                         }}
                       >
                         View
@@ -122,42 +112,72 @@ function ShowActivity() {
                   </td>
                 </tr>
               ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="text-center">
+                  <h1>No Data found!!</h1>
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
       </div>
 
-      {/* Modal for View */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>View Activity</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedActivity && (
-            <Carousel>
-              {Array.isArray(selectedActivity.PhotosVideos) ? (
-                selectedActivity.PhotosVideos.map((url, index) => (
-                  <Carousel.Item key={index}>
-                    <img
-                      className="d-block w-100"
-                      src={url}
-                      alt={`Image ${index + 1}`}
-                    />
-                  </Carousel.Item>
-                ))
-              ) : (
-                <Carousel.Item>
-                  <img
-                    className="d-block w-100"
-                    src={selectedActivity.PhotosVideos}
-                    alt="Activity Image"
-                  />
-                </Carousel.Item>
-              )}
-            </Carousel>
-          )}
-        </Modal.Body>
-      </Modal>
+      <CustomModal isOpen={modalOpen} onClose={closeModal}>
+        {selectedActivity && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="modal">
+              <div className="bg-white p-4 rounded shadow-lg">
+                <Carousel
+                  autoPlay
+                  infiniteLoop
+                  showStatus={true}
+                  showIndicators={true}
+                  showThumbs={false}
+                  interval={5000}
+                  onSwipeStart={true}
+                >
+                  {Array.isArray(selectedActivity.PhotosVideos) ? (
+                    selectedActivity.PhotosVideos.map((url, index) => (
+                      <div key={index}>
+                        <img
+                          src={url}
+                          alt={`Image ${index + 1}`}
+                          style={{
+                            maxWidth: "70%",
+                            height: "auto",
+                            maxHeight: "500px",
+                          }}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <img
+                        src={selectedActivity.PhotosVideos}
+                        alt="Image"
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto",
+                          maxHeight: "500px",
+                        }}
+                      />
+                    </div>
+                  )}
+                </Carousel>
+                <div className="flex justify-center mt-4">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded z-10"
+                    onClick={closeModal}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </CustomModal>
     </>
   );
 }

@@ -11,14 +11,13 @@ const ViewWorkshop = () => {
   const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
   const [userRegisteredWorkshops, setUserRegisteredWorkshops] = useState([]);
   const [selectedObject, setSelectedObject] = useState(null);
+
   useEffect(() => {
-    // Fetch workshops when the component mounts
     axios.get("http://localhost:8080/db/workshop.php/").then((response) => {
       setWorkshops(response.data);
     });
     console.log(workshops);
-    // Fetch user's registered workshops when the component mounts
-    // Replace with your API endpoint for fetching user's registered workshops
+
     axios
       .get("http://localhost:8080/db/workshopRegister.php", {
         params: { user_email: userEmail },
@@ -97,7 +96,7 @@ const ViewWorkshop = () => {
     <>
       <Sidebar />
       <div className="json-container">
-        <h1>Upcoming Workshops</h1>
+        <h1 className="text-2xl font-bold">Upcoming Workshops</h1>
         <div className="json-content">
           <div className="object-list">
             {workshops.map((workshop) => (

@@ -69,10 +69,15 @@ const GetJob = () => {
           <input
             type="text"
             value={searchKeyword}
-            placeholder="Enter name"
+            placeholder="Enter Full name"
             onChange={(event) => setSearchKeyword(event.target.value)}
           />
-          <button onClick={handleSearch}>Search</button>
+          <button
+            className="searchButton bg-white hover:bg-gray-200  text-black  py-2 px-4 rounded text-sm"
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
       </motion.div>
       <motion.div
@@ -133,11 +138,14 @@ const GetJob = () => {
                   <td>{user.doj}</td>
                   <td>
                     <div class="action-btn">
-                      <Link to={`user/${user.id}/edit`} className="edit-link">
+                      <Link
+                        to={`user/${user.id}/edit`}
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                      >
                         Edit
                       </Link>
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
@@ -180,12 +188,12 @@ const GetJob = () => {
                     <div class="action-btn">
                       <Link
                         to={`user/${searchResults[0].id}/edit`}
-                        className="edit-link"
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
                         Edit
                       </Link>
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
@@ -210,7 +218,10 @@ const GetJob = () => {
         </motion.table>
       </motion.div>
       <div>
-        <button className="backButton" onClick={() => navigate("/job")}>
+        <button
+          className="backButton bg-[#d3386c] hover:bg-[#a12953] text-white"
+          onClick={() => navigate("/job")}
+        >
           Back
         </button>
       </div>

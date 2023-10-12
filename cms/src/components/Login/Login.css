@@ -22,7 +22,9 @@ body {
   grid-gap: 7rem;
   padding: 0 2rem;
 }
-
+.Logoimg {
+  margin-left: 130px;
+}
 .img {
   display: flex;
   justify-content: flex-end;

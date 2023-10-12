@@ -64,8 +64,8 @@ function Login() {
 
       <div className="login-content">
         <form>
-          <img src="./login.png" alt="profile" />
-          <h1>Login</h1>
+          <img className="Logoimg" src="./login.png" alt="profile" />
+          <h1 className="text-3xl font-bold">Login</h1>
           <div className="input-div one">
             <div className="i">
               <FontAwesomeIcon className="icon" icon="fa-solid fa-user" />

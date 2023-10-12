@@ -40,9 +40,9 @@
 }
 
 .view-reg-button {
-  position: fixed; /* Set the button's position to fixed */
-  top: 400px; /* Adjust the top distance as needed */
-  right: 650px; /* Adjust the right distance as needed */
+  position: fixed;
+  top: 400px;
+  right: 650px;
   background-color: #d3386c;
   color: #ffffff;
   padding: 20px 20px;
@@ -53,7 +53,7 @@
   z-index: 2;
 }
 .view-reg-button:hover {
-  background-color: rgba(41, 128, 185, 0.7); /* Adjust hover color if needed */
+  background-color: rgba(41, 128, 185, 0.7);
 }
 
 .button-container {
@@ -126,4 +126,12 @@
 
 .close-button:hover {
   background-color: #c0392b;
+}
+.modal-content {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.table-container {
+  overflow-x: auto;
 }

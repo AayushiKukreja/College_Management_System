@@ -31,3 +31,6 @@
 #activityTable {
   margin-right: 400px; /* Adjust this value as needed */
 }
+.modal-header .close {
+  font-size: 1.5rem; /* Adjust the font size as needed */
+}

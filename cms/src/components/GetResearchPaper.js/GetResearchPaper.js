@@ -124,7 +124,10 @@ const GetResearchPaper = () => {
             placeholder="Enter PaperId"
             onChange={(event) => setSearchKeyword(event.target.value)}
           />
-          <button className="search-btn" onClick={handleSearch}>
+          <button
+            className="search-btn bg-white hover:bg-gray-200  text-black  py-2 px-4 rounded text-sm"
+            onClick={handleSearch}
+          >
             Search
           </button>
         </motion.div>
@@ -197,7 +200,7 @@ const GetResearchPaper = () => {
                   <motion.td variants={cellVariants}>
                     <div className="action-btn">
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
@@ -214,7 +217,10 @@ const GetResearchPaper = () => {
                         Delete
                       </button>
 
-                      <Link to={`user/${user.id}/edit`} className="edit-link">
+                      <Link
+                        to={`user/${user.id}/edit`}
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                      >
                         Open
                       </Link>
                     </div>
@@ -265,7 +271,7 @@ const GetResearchPaper = () => {
                   <motion.td variants={cellVariants}>
                     <div className="action-btn">
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
@@ -281,7 +287,10 @@ const GetResearchPaper = () => {
                       >
                         Delete
                       </button>
-                      <Link to={`user/${user.id}/edit`} className="edit-link">
+                      <Link
+                        to={`user/${user.id}/edit`}
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
+                      >
                         Open
                       </Link>
                     </div>
@@ -293,7 +302,10 @@ const GetResearchPaper = () => {
         </motion.table>
       </div>
       <div>
-        <button className="backButton" onClick={() => navigate("/research")}>
+        <button
+          className="backButton bg-[#d3386c] hover:bg-[#a12953] text-white"
+          onClick={() => navigate("/research")}
+        >
           Back
         </button>
       </div>

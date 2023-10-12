@@ -76,8 +76,12 @@ function GetStudent() {
             value={searchKeyword}
             placeholder="Enter EnrollmentId"
             onChange={(event) => setSearchKeyword(event.target.value)}
+            className="border border-gray-300 px-3 py-2 rounded mr-2"
           />
-          <button className="searchButton" onClick={handleSearch}>
+          <button
+            className="searchButton bg-white hover:bg-gray-200  text-black  py-2 px-4 rounded text-sm"
+            onClick={handleSearch}
+          >
             Search
           </button>
         </div>
@@ -133,20 +137,19 @@ function GetStudent() {
                   <td>{user.passingYear}</td>
                   <td>{user.dob}</td>
                   <td>
-                    <div class="action-btn">
+                    <div className="action-btn flex space-x-2">
                       <Link
                         to={`user/${user.enrollmentId}/edit`}
-                        className="edit-link"
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
                         Edit
                       </Link>
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
                           );
-
                           if (userResponse) {
                             deleteUser(user.enrollmentId);
                             alert("You chose to continue.");
@@ -182,12 +185,12 @@ function GetStudent() {
                     <div class="action-btn">
                       <Link
                         to={`user/${searchResults[0].enrollmentId}/edit`}
-                        className="edit-link"
+                        className="edit-link bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded"
                       >
                         Edit
                       </Link>
                       <button
-                        className="delete-button"
+                        className="delete-button bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
                         onClick={() => {
                           var userResponse = window.confirm(
                             "Do you want to continue?"
@@ -212,7 +215,10 @@ function GetStudent() {
         </motion.table>
       </motion.div>
       <div>
-        <button className="backButton" onClick={() => navigate("/student")}>
+        <button
+          className="backButton bg-[#d3386c] hover:bg-[#a12953] text-white"
+          onClick={() => navigate("/student")}
+        >
           Back
         </button>
       </div>

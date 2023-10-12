@@ -80,7 +80,7 @@ const Sidebar = () => {
             <FaIcons.FaBars onClick={showSidebar} />
           </NavIcon>
           <motion.button
-            className="Logout"
+            className="Logout bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded"
             variants={buttonVariants}
             whileHover="hover"
             whileTap="tap"

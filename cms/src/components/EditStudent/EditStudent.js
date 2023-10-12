@@ -174,7 +174,7 @@ function EditStudent() {
             value="Update"
           />
           <button
-            className="closee-modal"
+            className="closee-modal bg-white"
             onClick={(e) => {
               navigate("/getStudent");
             }}

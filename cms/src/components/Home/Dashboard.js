@@ -65,6 +65,7 @@ const Dashboard = () => {
           variants={headingVariants}
           initial="hidden"
           animate="visible"
+          className="text-2xl font-bold"
         >
           Graphic Era College Management System
         </motion.h1>
@@ -84,7 +85,7 @@ const Dashboard = () => {
               <h3>Students Registered</h3>
               <div className="dataContainer">
                 <div className="dataBackground">
-                  <h5>{data[0]}</h5>
+                  <h5 className="text-4xl font-bold">{data[0]}</h5>
                 </div>
               </div>
               <button
@@ -107,7 +108,7 @@ const Dashboard = () => {
               <h3>Faculties Registered</h3>
               <div className="dataContainer">
                 <div className="dataBackground">
-                  <h5>{data[1]}</h5>
+                  <h5 className="text-4xl font-bold">{data[1]}</h5>
                 </div>
               </div>
               <button
@@ -130,7 +131,7 @@ const Dashboard = () => {
               <h3 class="heading">Papers Published</h3>
               <div className="dataContainer">
                 <div className="dataBackground">
-                  <h5>{data[2]}</h5>
+                  <h5 className="text-4xl font-bold">{data[2]}</h5>
                 </div>
               </div>
 
@@ -154,7 +155,7 @@ const Dashboard = () => {
               <h3>Upcoming Workshops</h3>
               <div className="dataContainer">
                 <div className="dataBackground">
-                  <h5>{data[3]}</h5>
+                  <h5 className="text-4xl font-bold">{data[3]}</h5>
                 </div>
               </div>
               <button

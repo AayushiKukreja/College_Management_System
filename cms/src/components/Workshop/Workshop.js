@@ -67,7 +67,7 @@ const Workshop = () => {
     <>
       <Sidebar />
       <motion.div
-        className="heading"
+        className="heading text-3xl font-bold"
         initial="hidden"
         animate="visible"
         variants={headingVariants}
