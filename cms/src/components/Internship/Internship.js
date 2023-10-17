@@ -157,7 +157,7 @@ function Internship() {
                 initial="initial"
                 whileHover="hover"
                 whileTap="pressed"
-                className="submit-button  "
+                className="submit-button"
                 id="sumbit"
                 name="submit"
                 value="submit"
@@ -177,7 +177,7 @@ function Internship() {
                   navigate("/getInternStudent");
                 }}
               >
-                List Records
+                Records
               </motion.button>
             </div>
           </motion.form>

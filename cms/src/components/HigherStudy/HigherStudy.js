@@ -157,7 +157,7 @@ const HigherStudy = () => {
                   navigate("/getHigherStudyStudent");
                 }}
               >
-                List Records
+                Records
               </motion.button>
             </div>
           </motion.form>

@@ -31,7 +31,7 @@ input {
   margin-top: 10px;
   margin-right: 20px;
 }
-
+/* 
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
@@ -64,4 +64,4 @@ input {
 .submit-button:hover,
 .reset-button:hover {
   opacity: 0.8;
-}
+} */

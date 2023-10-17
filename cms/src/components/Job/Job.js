@@ -156,7 +156,7 @@ function Job() {
                   navigate("/getjob");
                 }}
               >
-                List Records
+                Records
               </motion.button>
             </div>
           </motion.form>

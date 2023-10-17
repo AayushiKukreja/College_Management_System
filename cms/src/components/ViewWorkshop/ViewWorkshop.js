@@ -96,7 +96,7 @@ const ViewWorkshop = () => {
     <>
       <Sidebar />
       <div className="json-container">
-        <h1 className="text-2xl font-bold">Upcoming Workshops</h1>
+        <h1 className="text-3xl font-bold">Upcoming Workshops</h1>
         <div className="json-content">
           <div className="object-list">
             {workshops.map((workshop) => (
@@ -133,7 +133,7 @@ const ViewWorkshop = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <h2>
+                <h2 className="text-3xl font-bold mb-7">
                   {
                     workshops.find((workshop) => workshop.id === selectedObject)
                       .name

@@ -208,6 +208,7 @@ const Research = () => {
                     type="button"
                     onClick={addAuthorField}
                     style={{ margin: "0 5px" }}
+                    className="addButton"
                   >
                     +
                   </button>
@@ -215,6 +216,7 @@ const Research = () => {
                 {index !== 0 && (
                   <button
                     type="button"
+                    className="deleteButton"
                     onClick={() => handleAuthorDelete(index)}
                     style={{ margin: "0 5px" }}
                   >
