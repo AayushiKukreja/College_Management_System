@@ -13,7 +13,7 @@ const ViewWorkshop = () => {
   const [selectedObject, setSelectedObject] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/db/workshop.php/").then((response) => {
+    axios.get("http://localhost:8080/db/workshop.php").then((response) => {
       setWorkshops(response.data);
     });
     console.log(workshops);

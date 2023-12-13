@@ -11,6 +11,7 @@ import "./Home.css";
 import { motion } from "framer-motion";
 
 const Nav = styled.div`
+  //horizontal nav
   background: #06beb6;
   background: -webkit-linear-gradient(to right, #06beb6, #48b1bf);
   background: linear-gradient(to right, #06beb6, #48b1bf);
